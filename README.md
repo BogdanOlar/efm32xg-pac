@@ -56,7 +56,8 @@ Vendor supplied documents:
 ### EFM32GG11
 
 - [Datasheet](https://www.silabs.com/documents/public/data-sheets/efm32gg11-datasheet.pdf)
-- [Reference Manual](https://www.silabs.com/documents/public/reference-manuals/efm32gg11-reference-manual.pdf)
+- [Reference Manual](https://www.silabs.com/documents/public/reference-manuals/efm32gg11-rm.pdf)
+- [Errata](https://www.silabs.com/documents/public/errata/efm32gg11-errata.pdf)
 
 # License
 
