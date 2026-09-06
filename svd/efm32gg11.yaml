@@ -1,0 +1,379 @@
+transforms:
+  - !Sanitize
+  - !DeleteFieldsets
+      from: .*
+      useless: true
+
+  # ===========================================================================
+  # Peripheral block merging: merge identical peripheral instances into shared
+  # blocks.  Every instance keeps its own const (different baseAddress) but
+  # they share one block definition, one set of regs and vals.
+  #
+  # MergeBlocks creates the merged block at the `to:` path (e.g. acmp::Acmp) and
+  # repoints every instance const at it, but leaves the regs/vals modules under
+  # the `main` peripheral's namespace (acmp0::regs).  The !Rename below moves
+  # them to the shared namespace (acmp::regs) so the !Delete can drop the
+  # instance modules.  No separate block rename is needed: `to:` already names
+  # the block.
+  #
+  # GG11 has far more instances than PG1B: ACMP0-3, USART0-5, TIMER0-6,
+  # WTIMER0-3, UART0-1, LEUART0-1, LETIMER0-1, PCNT0-2, I2C0-2, ADC0-1,
+  # WDOG0-1, CAN0-1.
+  # ===========================================================================
+
+  # ACMP0..ACMP3 -> acmp::Acmp
+  - !MergeBlocks
+      from: "(acmp0::Acmp0|acmp1::Acmp1|acmp2::Acmp2|acmp3::Acmp3)"
+      to: "acmp::Acmp"
+      main: "acmp0::Acmp0"
+      check: NoCheck
+  - !Rename
+      from: "acmp0::(.+)"
+      to: "acmp::$1"
+  - !Delete
+      from: "acmp[1-3].*"
+
+  # USART0..USART5 -> usart::Usart
+  - !MergeBlocks
+      from: "(usart0::Usart0|usart1::Usart1|usart2::Usart2|usart3::Usart3|usart4::Usart4|usart5::Usart5)"
+      to: "usart::Usart"
+      main: "usart0::Usart0"
+      check: NoCheck
+  - !Rename
+      from: "usart0::(.+)"
+      to: "usart::$1"
+  - !Delete
+      from: "usart[1-5].*"
+
+  # TIMER0..TIMER6 -> timer::Timer
+  - !MergeBlocks
+      from: "(timer0::Timer0|timer1::Timer1|timer2::Timer2|timer3::Timer3|timer4::Timer4|timer5::Timer5|timer6::Timer6)"
+      to: "timer::Timer"
+      main: "timer0::Timer0"
+      check: NoCheck
+  - !Rename
+      from: "timer0::(.+)"
+      to: "timer::$1"
+  - !Delete
+      from: "timer[1-6].*"
+
+  # WTIMER0..WTIMER3 -> wtimer::Wtimer
+  - !MergeBlocks
+      from: "(wtimer0::Wtimer0|wtimer1::Wtimer1|wtimer2::Wtimer2|wtimer3::Wtimer3)"
+      to: "wtimer::Wtimer"
+      main: "wtimer0::Wtimer0"
+      check: NoCheck
+  - !Rename
+      from: "wtimer0::(.+)"
+      to: "wtimer::$1"
+  - !Delete
+      from: "wtimer[1-3].*"
+
+  # UART0 + UART1 -> uart::Uart
+  - !MergeBlocks
+      from: "(uart0::Uart0|uart1::Uart1)"
+      to: "uart::Uart"
+      main: "uart0::Uart0"
+      check: NoCheck
+  - !Rename
+      from: "uart0::(.+)"
+      to: "uart::$1"
+  - !Delete
+      from: "uart1.*"
+
+  # LEUART0 + LEUART1 -> leuart::Leuart
+  - !MergeBlocks
+      from: "(leuart0::Leuart0|leuart1::Leuart1)"
+      to: "leuart::Leuart"
+      main: "leuart0::Leuart0"
+      check: NoCheck
+  - !Rename
+      from: "leuart0::(.+)"
+      to: "leuart::$1"
+  - !Delete
+      from: "leuart1.*"
+
+  # LETIMER0 + LETIMER1 -> letimer::Letimer
+  - !MergeBlocks
+      from: "(letimer0::Letimer0|letimer1::Letimer1)"
+      to: "letimer::Letimer"
+      main: "letimer0::Letimer0"
+      check: NoCheck
+  - !Rename
+      from: "letimer0::(.+)"
+      to: "letimer::$1"
+  - !Delete
+      from: "letimer1.*"
+
+  # PCNT0..PCNT2 -> pcnt::Pcnt
+  - !MergeBlocks
+      from: "(pcnt0::Pcnt0|pcnt1::Pcnt1|pcnt2::Pcnt2)"
+      to: "pcnt::Pcnt"
+      main: "pcnt0::Pcnt0"
+      check: NoCheck
+  - !Rename
+      from: "pcnt0::(.+)"
+      to: "pcnt::$1"
+  - !Delete
+      from: "pcnt[1-2].*"
+
+  # I2C0..I2C2 -> i2c::I2c
+  - !MergeBlocks
+      from: "(i2c0::I2c0|i2c1::I2c1|i2c2::I2c2)"
+      to: "i2c::I2c"
+      main: "i2c0::I2c0"
+      check: NoCheck
+  - !Rename
+      from: "i2c0::(.+)"
+      to: "i2c::$1"
+  - !Delete
+      from: "i2c[1-2].*"
+
+  # ADC0 + ADC1 -> adc::Adc
+  - !MergeBlocks
+      from: "(adc0::Adc0|adc1::Adc1)"
+      to: "adc::Adc"
+      main: "adc0::Adc0"
+      check: NoCheck
+  - !Rename
+      from: "adc0::(.+)"
+      to: "adc::$1"
+  - !Delete
+      from: "adc1.*"
+
+  # WDOG0 + WDOG1 -> wdog::Wdog
+  - !MergeBlocks
+      from: "(wdog0::Wdog0|wdog1::Wdog1)"
+      to: "wdog::Wdog"
+      main: "wdog0::Wdog0"
+      check: NoCheck
+  - !Rename
+      from: "wdog0::(.+)"
+      to: "wdog::$1"
+  - !Delete
+      from: "wdog1.*"
+
+  # CAN0 + CAN1 -> can::Can
+  - !MergeBlocks
+      from: "(can0::Can0|can1::Can1)"
+      to: "can::Can"
+      main: "can0::Can0"
+      check: NoCheck
+  - !Rename
+      from: "can0::(.+)"
+      to: "can::$1"
+  - !Delete
+      from: "can1.*"
+
+  # ===========================================================================
+  # IFS/IFC fieldset merging: IFC is identical to IFS (same fields, same bit
+  # positions, write-only).  Merge IFC into IFS so both registers share one
+  # fieldset type.
+  # ===========================================================================
+  - !MergeFieldsets
+      from: "(.+)::regs::If[sc]"
+      to: "$1::regs::Ifs"
+      main: "(.+)::regs::Ifs"
+      check: NoCheck
+
+  # ===========================================================================
+  # TIMER/WTIMER CC: the CC1/CC2/CC3 fieldsets are identical copies of CC0
+  # (same fields and bit positions; only the per-instance enum names differ).
+  # Merge them into CC0 so all CC channels share one fieldset type.  This
+  # mirrors the RTCC CC merge below; the ccN_ccv/ccvp/ccvb registers are plain
+  # u32 (no fieldset) so only Ctrl needs merging.
+  # ===========================================================================
+  - !MergeFieldsets
+      from: "timer::regs::Cc[0-3](.+)"
+      to: "timer::regs::Cc0$1"
+      main: "timer::regs::Cc0.*"
+      check: NoCheck
+  - !MergeFieldsets
+      from: "wtimer::regs::Cc[0-3](.+)"
+      to: "wtimer::regs::Cc0$1"
+      main: "wtimer::regs::Cc0.*"
+      check: NoCheck
+
+  # ===========================================================================
+  # CAN: the two message interface register groups (MIR0_*/MIR1_*) have
+  # identical fieldsets.  Merge MIR1 fieldsets into MIR0.
+  # ===========================================================================
+  - !MergeFieldsets
+      from: "can::regs::Mir[01](.+)"
+      to: "can::regs::Mir0$1"
+      main: "can::regs::Mir0.*"
+      check: NoCheck
+
+  # ===========================================================================
+  # PRSCH enum merging: the PRS channel selector enum (Prsch0..) is duplicated
+  # under many names across peripherals (GG11 has 24 channels, Prsch0..23).
+  # Merge them all into prs::vals::Prssel.
+  # ===========================================================================
+  - !MergeEnums
+      from: ".+::vals::(.*[Pp][Rr][Ss].*[Ss]el|Tsel)"
+      to: "prs::vals::Prssel"
+      check: NoCheck
+      skip_unmergeable: true
+
+  # ===========================================================================
+  # LDMA: collapse the flat CH0_*..CH23_* channel registers into a cluster.
+  # ===========================================================================
+  - !MakeBlock
+      blocks: "ldma::Ldma"
+      from: "ch(\\d+)_(.+)"
+      to_outer: "ch$1"
+      to_inner: "$2"
+      to_block: "ldma::Channel"
+  # 'loop' is a Rust keyword — rename to 'loop_'
+  - !RenameRegisters
+      block: "ldma::Channel"
+      from: "loop"
+      to: "loop_"
+
+  # ===========================================================================
+  # Strip the trailing "0" from single-instance peripherals.  GG11 has only
+  # one CRYPTO, QSPI, VDAC, IDAC, TRNG — the "0" suffix adds noise.  Rename
+  # both the peripheral const (RenamePeripherals) and the block/fieldset/enum
+  # paths (Rename).
+  # ===========================================================================
+  - !RenamePeripherals
+      from: "(CRYPTO|QSPI|VDAC|IDAC|TRNG)0"
+      to: "$1"
+  - !Rename
+      from: "(crypto|qspi|vdac|idac|trng)0::(.+)"
+      to: "$1::$2"
+  - !Rename
+      from: "(crypto|qspi|vdac|idac|trng)::(Crypto|Qspi|Vdac|Idac|Trng)0"
+      to: "$1::$2"
+
+  # ===========================================================================
+  # GPIO: collapse the flat PA_*..PL_* port register groups into a shared
+  # Port block (GG11 has 12 ports, A..L).  MakeBlock extracts them;
+  # MergeFieldsets collapses the per-port fieldset copies (PaCtrl, PbCtrl,
+  # ... -> Ctrl).
+  # ===========================================================================
+  - !MakeBlock
+      blocks: "gpio::Gpio"
+      from: "p([a-l])_(.+)"
+      to_outer: "port_$1"
+      to_inner: "$2"
+      to_block: "gpio::Port"
+  - !MergeFieldsets
+      from: "gpio::regs::P[a-l](.+)"
+      to: "gpio::regs::$1"
+      main: "gpio::regs::Pa$1"
+      check: NoCheck
+  # GPIO Ctrl field renames: make the abbreviated names more readable
+  - !RenameFields
+      fieldset: "gpio::regs::Ctrl"
+      from: "drivestrength"
+      to: "drive_strength"
+  - !RenameFields
+      fieldset: "gpio::regs::Ctrl"
+      from: "slewrate"
+      to: "slew_rate"
+  - !RenameFields
+      fieldset: "gpio::regs::Ctrl"
+      from: "dindis"
+      to: "din_dis"
+  - !RenameFields
+      fieldset: "gpio::regs::Ctrl"
+      from: "drivestrengthalt"
+      to: "drive_strength_alt"
+  - !RenameFields
+      fieldset: "gpio::regs::Ctrl"
+      from: "slewratealt"
+      to: "slew_rate_alt"
+  - !RenameFields
+      fieldset: "gpio::regs::Ctrl"
+      from: "dindisalt"
+      to: "din_dis_alt"
+
+  # ===========================================================================
+  # USB host channels: collapse the flat HC0_*..HC13_* channel register
+  # groups into a shared Hc block, then merge the per-channel fieldset copies
+  # (Hc0Char, Hc1Char, ... -> Hc0Char).  The hcN_dmaaddr register is plain
+  # u32 (no fieldset) so it is clustered but not merged.
+  # ===========================================================================
+  - !MakeBlock
+      blocks: "usb::Usb"
+      from: "hc(\\d+)_(.+)"
+      to_outer: "hc$1"
+      to_inner: "$2"
+      to_block: "usb::Hc"
+  - !MergeFieldsets
+      from: "usb::regs::Hc\\d+(.+)"
+      to: "usb::regs::Hc0$1"
+      main: "usb::regs::Hc0.*"
+      check: NoCheck
+
+  # ===========================================================================
+  # LESENSE channels: collapse the flat CH0_*..CH15_* channel register groups
+  # (timing/interact/eval) into a shared Ch block, then merge the per-channel
+  # fieldset copies.
+  # ===========================================================================
+  - !MakeBlock
+      blocks: "lesense::Lesense"
+      from: "ch(\\d+)_(.+)"
+      to_outer: "ch$1"
+      to_inner: "$2"
+      to_block: "lesense::Ch"
+  - !MergeFieldsets
+      from: "lesense::regs::Ch\\d+(.+)"
+      to: "lesense::regs::Ch0$1"
+      main: "lesense::regs::Ch0.*"
+      check: NoCheck
+
+  # ===========================================================================
+  # LESENSE states: collapse the flat ST0_*..ST31_* state register groups
+  # (tconfa/tconfb) into a shared St block, then merge the per-state fieldset
+  # copies.
+  # ===========================================================================
+  - !MakeBlock
+      blocks: "lesense::Lesense"
+      from: "st(\\d+)_(.+)"
+      to_outer: "st$1"
+      to_inner: "$2"
+      to_block: "lesense::St"
+  - !MergeFieldsets
+      from: "lesense::regs::St\\d+(.+)"
+      to: "lesense::regs::St0$1"
+      main: "lesense::regs::St0.*"
+      check: NoCheck
+
+  # ===========================================================================
+  # VDAC OPA: collapse the flat OPA0_*..OPA3_* op-amp register groups
+  # (aportreq/aportconflict/ctrl/timer/mux/out/cal) into a shared Opa block,
+  # then merge the per-op-amp fieldset copies.
+  # ===========================================================================
+  - !MakeBlock
+      blocks: "vdac::Vdac"
+      from: "opa(\\d+)_(.+)"
+      to_outer: "opa$1"
+      to_inner: "$2"
+      to_block: "vdac::Opa"
+  - !MergeFieldsets
+      from: "vdac::regs::Opa\\d+(.+)"
+      to: "vdac::regs::Opa0$1"
+      main: "vdac::regs::Opa0.*"
+      check: NoCheck
+
+  # ===========================================================================
+  # RTCC: merge CC1/CC2 fieldsets into CC0 (identical layout).
+  # ===========================================================================
+  - !MergeFieldsets
+      from: "rtcc::regs::Cc[012](.+)"
+      to: "rtcc::regs::Cc0$1"
+      main: "rtcc::regs::Cc0.*"
+      check: NoCheck
+
+  # ===========================================================================
+  # LOCKKEY enum merging: the Unlocked/Locked enum appears in LOCK/MASSLOCK/
+  # DTLOCK registers across MSC, EMU, RMU, CMU, TIMER, RTCC, GPIO.  Merge
+  # into one canonical definition.
+  # ===========================================================================
+  - !MergeEnums
+      from: ".+::vals::.*Lockkey"
+      to: "msc::vals::Lockkey"
+      check: NoCheck
+      skip_unmergeable: true

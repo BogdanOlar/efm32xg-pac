@@ -1,0 +1,31 @@
+[package]
+name = "efm32xg-pac"
+version = "0.1.0"
+edition = "2021"
+authors = ["Bogdan Olar <olar.bogdan.dev@gmail.com>"]
+description = "Peripheral access API for Silicon Labs EFM32 microcontrollers (EFM32PG1B, EFM32GG11)"
+keywords = ["pac", "arm", "cortex-m", "efm32", "chiptool"]
+categories = ["embedded", "hardware-support", "no-std"]
+readme = "README.md"
+license = "MIT/Apache-2.0"
+repository = "https://github.com/BogdanOlar/efm32xg-pac"
+
+[dependencies]
+critical-section = { version = "1.2", optional = true }
+cortex-m = "0.7.9"
+cortex-m-rt = { version = "0.7.6", optional = true }
+defmt = { version = "1.1", optional = true }
+portable-atomic = { version = "1.15", default-features = false, optional = true }
+
+[package.metadata.docs.rs]
+features = ['critical-section', 'rt', 'efm32pg1b']
+default-target = "thumbv7m-none-eabi"
+targets = []
+
+[features]
+default = ["critical-section", "rt", "efm32pg1b"]
+efm32pg1b = []
+efm32gg11 = []
+rt = ["cortex-m-rt/device"]
+defmt = ["dep:defmt"]
+atomics = ["dep:portable-atomic"]
