@@ -25,6 +25,7 @@ for chip in efm32pg1b efm32gg11; do
     form -i lib.rs -o src/$chip
     mv src/$chip/lib.rs src/$chip/mod.rs
     rm lib.rs
+    rm -f device.x
 done
 
 cargo fmt
