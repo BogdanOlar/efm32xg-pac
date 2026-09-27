@@ -115,13 +115,13 @@ impl CcCtrl {
     #[doc = "CC Channel Mode."]
     #[must_use]
     #[inline(always)]
-    pub const fn mode(&self) -> super::vals::Cc0CtrlMode {
+    pub const fn mode(&self) -> super::vals::CcCtrlMode {
         let val = (self.0 >> 0usize) & 0x03;
-        super::vals::Cc0CtrlMode::from_bits(val as u8)
+        super::vals::CcCtrlMode::from_bits(val as u8)
     }
     #[doc = "CC Channel Mode."]
     #[inline(always)]
-    pub const fn set_mode(&mut self, val: super::vals::Cc0CtrlMode) {
+    pub const fn set_mode(&mut self, val: super::vals::CcCtrlMode) {
         self.0 = (self.0 & !(0x03 << 0usize)) | (((val.to_bits() as u32) & 0x03) << 0usize);
     }
     #[doc = "Output Invert."]
@@ -151,37 +151,37 @@ impl CcCtrl {
     #[doc = "Compare Match Output Action."]
     #[must_use]
     #[inline(always)]
-    pub const fn cmoa(&self) -> super::vals::Cc0CtrlCmoa {
+    pub const fn cmoa(&self) -> super::vals::CcCtrlCmoa {
         let val = (self.0 >> 8usize) & 0x03;
-        super::vals::Cc0CtrlCmoa::from_bits(val as u8)
+        super::vals::CcCtrlCmoa::from_bits(val as u8)
     }
     #[doc = "Compare Match Output Action."]
     #[inline(always)]
-    pub const fn set_cmoa(&mut self, val: super::vals::Cc0CtrlCmoa) {
+    pub const fn set_cmoa(&mut self, val: super::vals::CcCtrlCmoa) {
         self.0 = (self.0 & !(0x03 << 8usize)) | (((val.to_bits() as u32) & 0x03) << 8usize);
     }
     #[doc = "Counter Overflow Output Action."]
     #[must_use]
     #[inline(always)]
-    pub const fn cofoa(&self) -> super::vals::Cc0CtrlCofoa {
+    pub const fn cofoa(&self) -> super::vals::CcCtrlCofoa {
         let val = (self.0 >> 10usize) & 0x03;
-        super::vals::Cc0CtrlCofoa::from_bits(val as u8)
+        super::vals::CcCtrlCofoa::from_bits(val as u8)
     }
     #[doc = "Counter Overflow Output Action."]
     #[inline(always)]
-    pub const fn set_cofoa(&mut self, val: super::vals::Cc0CtrlCofoa) {
+    pub const fn set_cofoa(&mut self, val: super::vals::CcCtrlCofoa) {
         self.0 = (self.0 & !(0x03 << 10usize)) | (((val.to_bits() as u32) & 0x03) << 10usize);
     }
     #[doc = "Counter Underflow Output Action."]
     #[must_use]
     #[inline(always)]
-    pub const fn cufoa(&self) -> super::vals::Cc0CtrlCufoa {
+    pub const fn cufoa(&self) -> super::vals::CcCtrlCufoa {
         let val = (self.0 >> 12usize) & 0x03;
-        super::vals::Cc0CtrlCufoa::from_bits(val as u8)
+        super::vals::CcCtrlCufoa::from_bits(val as u8)
     }
     #[doc = "Counter Underflow Output Action."]
     #[inline(always)]
-    pub const fn set_cufoa(&mut self, val: super::vals::Cc0CtrlCufoa) {
+    pub const fn set_cufoa(&mut self, val: super::vals::CcCtrlCufoa) {
         self.0 = (self.0 & !(0x03 << 12usize)) | (((val.to_bits() as u32) & 0x03) << 12usize);
     }
     #[doc = "Compare/Capture Channel PRS Input Channel Selection."]
@@ -199,25 +199,25 @@ impl CcCtrl {
     #[doc = "Input Capture Edge Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn icedge(&self) -> super::vals::Cc0CtrlIcedge {
+    pub const fn icedge(&self) -> super::vals::CcCtrlIcedge {
         let val = (self.0 >> 24usize) & 0x03;
-        super::vals::Cc0CtrlIcedge::from_bits(val as u8)
+        super::vals::CcCtrlIcedge::from_bits(val as u8)
     }
     #[doc = "Input Capture Edge Select."]
     #[inline(always)]
-    pub const fn set_icedge(&mut self, val: super::vals::Cc0CtrlIcedge) {
+    pub const fn set_icedge(&mut self, val: super::vals::CcCtrlIcedge) {
         self.0 = (self.0 & !(0x03 << 24usize)) | (((val.to_bits() as u32) & 0x03) << 24usize);
     }
     #[doc = "Input Capture Event Control."]
     #[must_use]
     #[inline(always)]
-    pub const fn icevctrl(&self) -> super::vals::Cc0CtrlIcevctrl {
+    pub const fn icevctrl(&self) -> super::vals::CcCtrlIcevctrl {
         let val = (self.0 >> 26usize) & 0x03;
-        super::vals::Cc0CtrlIcevctrl::from_bits(val as u8)
+        super::vals::CcCtrlIcevctrl::from_bits(val as u8)
     }
     #[doc = "Input Capture Event Control."]
     #[inline(always)]
-    pub const fn set_icevctrl(&mut self, val: super::vals::Cc0CtrlIcevctrl) {
+    pub const fn set_icevctrl(&mut self, val: super::vals::CcCtrlIcevctrl) {
         self.0 = (self.0 & !(0x03 << 26usize)) | (((val.to_bits() as u32) & 0x03) << 26usize);
     }
     #[doc = "PRS Configuration."]
@@ -1719,49 +1719,49 @@ impl Routeloc0 {
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc0loc(&self) -> super::vals::Cc0loc {
+    pub const fn cc0loc(&self) -> super::vals::Ccloc {
         let val = (self.0 >> 0usize) & 0x3f;
-        super::vals::Cc0loc::from_bits(val as u8)
+        super::vals::Ccloc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc0loc(&mut self, val: super::vals::Cc0loc) {
+    pub const fn set_cc0loc(&mut self, val: super::vals::Ccloc) {
         self.0 = (self.0 & !(0x3f << 0usize)) | (((val.to_bits() as u32) & 0x3f) << 0usize);
     }
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc1loc(&self) -> super::vals::Cc1loc {
+    pub const fn cc1loc(&self) -> super::vals::Ccloc {
         let val = (self.0 >> 8usize) & 0x3f;
-        super::vals::Cc1loc::from_bits(val as u8)
+        super::vals::Ccloc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc1loc(&mut self, val: super::vals::Cc1loc) {
+    pub const fn set_cc1loc(&mut self, val: super::vals::Ccloc) {
         self.0 = (self.0 & !(0x3f << 8usize)) | (((val.to_bits() as u32) & 0x3f) << 8usize);
     }
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc2loc(&self) -> super::vals::Cc2loc {
+    pub const fn cc2loc(&self) -> super::vals::Ccloc {
         let val = (self.0 >> 16usize) & 0x3f;
-        super::vals::Cc2loc::from_bits(val as u8)
+        super::vals::Ccloc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc2loc(&mut self, val: super::vals::Cc2loc) {
+    pub const fn set_cc2loc(&mut self, val: super::vals::Ccloc) {
         self.0 = (self.0 & !(0x3f << 16usize)) | (((val.to_bits() as u32) & 0x3f) << 16usize);
     }
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc3loc(&self) -> super::vals::Cc3loc {
+    pub const fn cc3loc(&self) -> super::vals::Ccloc {
         let val = (self.0 >> 24usize) & 0x3f;
-        super::vals::Cc3loc::from_bits(val as u8)
+        super::vals::Ccloc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc3loc(&mut self, val: super::vals::Cc3loc) {
+    pub const fn set_cc3loc(&mut self, val: super::vals::Ccloc) {
         self.0 = (self.0 & !(0x3f << 24usize)) | (((val.to_bits() as u32) & 0x3f) << 24usize);
     }
 }

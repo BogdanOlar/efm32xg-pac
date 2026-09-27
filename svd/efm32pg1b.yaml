@@ -77,14 +77,23 @@ transforms:
       check: NoCheck
 
   # ===========================================================================
-  # TIMER: collapse the 4 flat CH0_*..CH3_* channel registers into a cluster.
+  # TIMER: collapse the 4 flat CC0_*..CC3_* channel registers into a cluster.
   # ===========================================================================
   - !MakeBlock
       blocks: "timer::Timer"
       from: "cc(\\d+)_(.+)"
-      to_outer: "ch$1"
+      to_outer: "cc$1"
       to_inner: "$2"
       to_block: "timer::Channel"
+
+  # ===========================================================================
+  # TIMER: merge timer channel enums
+  # ===========================================================================
+  - !MergeEnums
+      from: "timer::vals::Cc[0-3](.+)"
+      to: "timer::vals::Cc$1"
+      check: NoCheck
+      skip_unmergeable: true    
 
   # ===========================================================================
   # PRSCH enum merging: the 12-variant PRS channel selector enum (Prsch0..11)

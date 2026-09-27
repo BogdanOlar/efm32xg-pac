@@ -2120,16 +2120,16 @@ block/timer::Timer:
     description: DTI Configuration Lock Register.
     byte_offset: 184
     fieldset: timer::regs::Dtlock
-  - name: ch0
+  - name: cc0
     byte_offset: 96
     block: timer::Channel
-  - name: ch1
+  - name: cc1
     byte_offset: 112
     block: timer::Channel
-  - name: ch2
+  - name: cc2
     byte_offset: 128
     block: timer::Channel
-  - name: ch3
+  - name: cc3
     byte_offset: 144
     block: timer::Channel
 block/usart::Usart:
@@ -10154,7 +10154,7 @@ fieldset/timer::regs::CcCtrl:
     description: CC Channel Mode.
     bit_offset: 0
     bit_size: 2
-    enum: timer::vals::Cc0CtrlMode
+    enum: timer::vals::CcCtrlMode
   - name: outinv
     description: Output Invert.
     bit_offset: 2
@@ -10167,17 +10167,17 @@ fieldset/timer::regs::CcCtrl:
     description: Compare Match Output Action.
     bit_offset: 8
     bit_size: 2
-    enum: timer::vals::Cc0CtrlCmoa
+    enum: timer::vals::CcCtrlCmoa
   - name: cofoa
     description: Counter Overflow Output Action.
     bit_offset: 10
     bit_size: 2
-    enum: timer::vals::Cc0CtrlCofoa
+    enum: timer::vals::CcCtrlCofoa
   - name: cufoa
     description: Counter Underflow Output Action.
     bit_offset: 12
     bit_size: 2
-    enum: timer::vals::Cc0CtrlCufoa
+    enum: timer::vals::CcCtrlCufoa
   - name: prssel
     description: Compare/Capture Channel PRS Input Channel Selection.
     bit_offset: 16
@@ -10187,12 +10187,12 @@ fieldset/timer::regs::CcCtrl:
     description: Input Capture Edge Select.
     bit_offset: 24
     bit_size: 2
-    enum: timer::vals::Cc0CtrlIcedge
+    enum: timer::vals::CcCtrlIcedge
   - name: icevctrl
     description: Input Capture Event Control.
     bit_offset: 26
     bit_size: 2
-    enum: timer::vals::Cc0CtrlIcevctrl
+    enum: timer::vals::CcCtrlIcevctrl
   - name: prsconf
     description: PRS Configuration.
     bit_offset: 28
@@ -10598,22 +10598,22 @@ fieldset/timer::regs::Routeloc0:
     description: I/O Location.
     bit_offset: 0
     bit_size: 6
-    enum: timer::vals::Cc0loc
+    enum: timer::vals::Ccloc
   - name: cc1loc
     description: I/O Location.
     bit_offset: 8
     bit_size: 6
-    enum: timer::vals::Cc1loc
+    enum: timer::vals::Ccloc
   - name: cc2loc
     description: I/O Location.
     bit_offset: 16
     bit_size: 6
-    enum: timer::vals::Cc2loc
+    enum: timer::vals::Ccloc
   - name: cc3loc
     description: I/O Location.
     bit_offset: 24
     bit_size: 6
-    enum: timer::vals::Cc3loc
+    enum: timer::vals::Ccloc
 fieldset/timer::regs::Routeloc2:
   description: I/O Routing Location Register.
   fields:
@@ -23198,7 +23198,7 @@ enum/rtcc::vals::Cntpresc:
   - name: Div8192
     description: CLKCNT = LFECLKRTCC/8192.
     value: 13
-enum/timer::vals::Cc0CtrlCmoa:
+enum/timer::vals::CcCtrlCmoa:
   bit_size: 2
   variants:
   - name: Clear
@@ -23213,7 +23213,7 @@ enum/timer::vals::Cc0CtrlCmoa:
   - name: Toggle
     description: Toggle output on compare match.
     value: 1
-enum/timer::vals::Cc0CtrlCofoa:
+enum/timer::vals::CcCtrlCofoa:
   bit_size: 2
   variants:
   - name: Clear
@@ -23228,7 +23228,7 @@ enum/timer::vals::Cc0CtrlCofoa:
   - name: Toggle
     description: Toggle output on counter overflow.
     value: 1
-enum/timer::vals::Cc0CtrlCufoa:
+enum/timer::vals::CcCtrlCufoa:
   bit_size: 2
   variants:
   - name: Clear
@@ -23243,7 +23243,7 @@ enum/timer::vals::Cc0CtrlCufoa:
   - name: Toggle
     description: Toggle output on counter underflow.
     value: 1
-enum/timer::vals::Cc0CtrlIcedge:
+enum/timer::vals::CcCtrlIcedge:
   bit_size: 2
   variants:
   - name: Both
@@ -23258,7 +23258,7 @@ enum/timer::vals::Cc0CtrlIcedge:
   - name: Rising
     description: Rising edges detected.
     value: 0
-enum/timer::vals::Cc0CtrlIcevctrl:
+enum/timer::vals::CcCtrlIcevctrl:
   bit_size: 2
   variants:
   - name: Everyedge
@@ -23273,7 +23273,7 @@ enum/timer::vals::Cc0CtrlIcevctrl:
   - name: Rising
     description: PRS output pulse and interrupt flag set on rising edge only (if ICEDGE = BOTH).
     value: 2
-enum/timer::vals::Cc0CtrlMode:
+enum/timer::vals::CcCtrlMode:
   bit_size: 2
   variants:
   - name: Inputcapture
@@ -23288,574 +23288,7 @@ enum/timer::vals::Cc0CtrlMode:
   - name: Pwm
     description: Pulse-Width Modulation.
     value: 3
-enum/timer::vals::Cc0loc:
-  bit_size: 6
-  variants:
-  - name: Loc0
-    description: Location 0.
-    value: 0
-  - name: Loc1
-    description: Location 1.
-    value: 1
-  - name: Loc10
-    description: Location 10.
-    value: 10
-  - name: Loc11
-    description: Location 11.
-    value: 11
-  - name: Loc12
-    description: Location 12.
-    value: 12
-  - name: Loc13
-    description: Location 13.
-    value: 13
-  - name: Loc14
-    description: Location 14.
-    value: 14
-  - name: Loc15
-    description: Location 15.
-    value: 15
-  - name: Loc16
-    description: Location 16.
-    value: 16
-  - name: Loc17
-    description: Location 17.
-    value: 17
-  - name: Loc18
-    description: Location 18.
-    value: 18
-  - name: Loc19
-    description: Location 19.
-    value: 19
-  - name: Loc2
-    description: Location 2.
-    value: 2
-  - name: Loc20
-    description: Location 20.
-    value: 20
-  - name: Loc21
-    description: Location 21.
-    value: 21
-  - name: Loc22
-    description: Location 22.
-    value: 22
-  - name: Loc23
-    description: Location 23.
-    value: 23
-  - name: Loc24
-    description: Location 24.
-    value: 24
-  - name: Loc25
-    description: Location 25.
-    value: 25
-  - name: Loc26
-    description: Location 26.
-    value: 26
-  - name: Loc27
-    description: Location 27.
-    value: 27
-  - name: Loc28
-    description: Location 28.
-    value: 28
-  - name: Loc29
-    description: Location 29.
-    value: 29
-  - name: Loc3
-    description: Location 3.
-    value: 3
-  - name: Loc30
-    description: Location 30.
-    value: 30
-  - name: Loc31
-    description: Location 31.
-    value: 31
-  - name: Loc4
-    description: Location 4.
-    value: 4
-  - name: Loc5
-    description: Location 5.
-    value: 5
-  - name: Loc6
-    description: Location 6.
-    value: 6
-  - name: Loc7
-    description: Location 7.
-    value: 7
-  - name: Loc8
-    description: Location 8.
-    value: 8
-  - name: Loc9
-    description: Location 9.
-    value: 9
-enum/timer::vals::Cc1CtrlCmoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on compare match.
-    value: 2
-  - name: None
-    description: No action on compare match.
-    value: 0
-  - name: Set
-    description: Set output on compare match.
-    value: 3
-  - name: Toggle
-    description: Toggle output on compare match.
-    value: 1
-enum/timer::vals::Cc1CtrlCofoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on counter overflow.
-    value: 2
-  - name: None
-    description: No action on counter overflow.
-    value: 0
-  - name: Set
-    description: Set output on counter overflow.
-    value: 3
-  - name: Toggle
-    description: Toggle output on counter overflow.
-    value: 1
-enum/timer::vals::Cc1CtrlCufoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on counter underflow.
-    value: 2
-  - name: None
-    description: No action on counter underflow.
-    value: 0
-  - name: Set
-    description: Set output on counter underflow.
-    value: 3
-  - name: Toggle
-    description: Toggle output on counter underflow.
-    value: 1
-enum/timer::vals::Cc1CtrlIcedge:
-  bit_size: 2
-  variants:
-  - name: Both
-    description: Both edges detected.
-    value: 2
-  - name: Falling
-    description: Falling edges detected.
-    value: 1
-  - name: None
-    description: No edge detection, signal is left as it is.
-    value: 3
-  - name: Rising
-    description: Rising edges detected.
-    value: 0
-enum/timer::vals::Cc1CtrlIcevctrl:
-  bit_size: 2
-  variants:
-  - name: Everyedge
-    description: PRS output pulse and interrupt flag set on every capture.
-    value: 0
-  - name: Everysecondedge
-    description: PRS output pulse and interrupt flag set on every second capture.
-    value: 1
-  - name: Falling
-    description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
-    value: 3
-  - name: Rising
-    description: PRS output pulse and interrupt flag set on rising edge only (if ICEDGE = BOTH).
-    value: 2
-enum/timer::vals::Cc1CtrlMode:
-  bit_size: 2
-  variants:
-  - name: Inputcapture
-    description: Input capture.
-    value: 1
-  - name: Off
-    description: Compare/Capture channel turned off.
-    value: 0
-  - name: Outputcompare
-    description: Output compare.
-    value: 2
-  - name: Pwm
-    description: Pulse-Width Modulation.
-    value: 3
-enum/timer::vals::Cc1loc:
-  bit_size: 6
-  variants:
-  - name: Loc0
-    description: Location 0.
-    value: 0
-  - name: Loc1
-    description: Location 1.
-    value: 1
-  - name: Loc10
-    description: Location 10.
-    value: 10
-  - name: Loc11
-    description: Location 11.
-    value: 11
-  - name: Loc12
-    description: Location 12.
-    value: 12
-  - name: Loc13
-    description: Location 13.
-    value: 13
-  - name: Loc14
-    description: Location 14.
-    value: 14
-  - name: Loc15
-    description: Location 15.
-    value: 15
-  - name: Loc16
-    description: Location 16.
-    value: 16
-  - name: Loc17
-    description: Location 17.
-    value: 17
-  - name: Loc18
-    description: Location 18.
-    value: 18
-  - name: Loc19
-    description: Location 19.
-    value: 19
-  - name: Loc2
-    description: Location 2.
-    value: 2
-  - name: Loc20
-    description: Location 20.
-    value: 20
-  - name: Loc21
-    description: Location 21.
-    value: 21
-  - name: Loc22
-    description: Location 22.
-    value: 22
-  - name: Loc23
-    description: Location 23.
-    value: 23
-  - name: Loc24
-    description: Location 24.
-    value: 24
-  - name: Loc25
-    description: Location 25.
-    value: 25
-  - name: Loc26
-    description: Location 26.
-    value: 26
-  - name: Loc27
-    description: Location 27.
-    value: 27
-  - name: Loc28
-    description: Location 28.
-    value: 28
-  - name: Loc29
-    description: Location 29.
-    value: 29
-  - name: Loc3
-    description: Location 3.
-    value: 3
-  - name: Loc30
-    description: Location 30.
-    value: 30
-  - name: Loc31
-    description: Location 31.
-    value: 31
-  - name: Loc4
-    description: Location 4.
-    value: 4
-  - name: Loc5
-    description: Location 5.
-    value: 5
-  - name: Loc6
-    description: Location 6.
-    value: 6
-  - name: Loc7
-    description: Location 7.
-    value: 7
-  - name: Loc8
-    description: Location 8.
-    value: 8
-  - name: Loc9
-    description: Location 9.
-    value: 9
-enum/timer::vals::Cc2CtrlCmoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on compare match.
-    value: 2
-  - name: None
-    description: No action on compare match.
-    value: 0
-  - name: Set
-    description: Set output on compare match.
-    value: 3
-  - name: Toggle
-    description: Toggle output on compare match.
-    value: 1
-enum/timer::vals::Cc2CtrlCofoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on counter overflow.
-    value: 2
-  - name: None
-    description: No action on counter overflow.
-    value: 0
-  - name: Set
-    description: Set output on counter overflow.
-    value: 3
-  - name: Toggle
-    description: Toggle output on counter overflow.
-    value: 1
-enum/timer::vals::Cc2CtrlCufoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on counter underflow.
-    value: 2
-  - name: None
-    description: No action on counter underflow.
-    value: 0
-  - name: Set
-    description: Set output on counter underflow.
-    value: 3
-  - name: Toggle
-    description: Toggle output on counter underflow.
-    value: 1
-enum/timer::vals::Cc2CtrlIcedge:
-  bit_size: 2
-  variants:
-  - name: Both
-    description: Both edges detected.
-    value: 2
-  - name: Falling
-    description: Falling edges detected.
-    value: 1
-  - name: None
-    description: No edge detection, signal is left as it is.
-    value: 3
-  - name: Rising
-    description: Rising edges detected.
-    value: 0
-enum/timer::vals::Cc2CtrlIcevctrl:
-  bit_size: 2
-  variants:
-  - name: Everyedge
-    description: PRS output pulse and interrupt flag set on every capture.
-    value: 0
-  - name: Everysecondedge
-    description: PRS output pulse and interrupt flag set on every second capture.
-    value: 1
-  - name: Falling
-    description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
-    value: 3
-  - name: Rising
-    description: PRS output pulse and interrupt flag set on rising edge only (if ICEDGE = BOTH).
-    value: 2
-enum/timer::vals::Cc2CtrlMode:
-  bit_size: 2
-  variants:
-  - name: Inputcapture
-    description: Input capture.
-    value: 1
-  - name: Off
-    description: Compare/Capture channel turned off.
-    value: 0
-  - name: Outputcompare
-    description: Output compare.
-    value: 2
-  - name: Pwm
-    description: Pulse-Width Modulation.
-    value: 3
-enum/timer::vals::Cc2loc:
-  bit_size: 6
-  variants:
-  - name: Loc0
-    description: Location 0.
-    value: 0
-  - name: Loc1
-    description: Location 1.
-    value: 1
-  - name: Loc10
-    description: Location 10.
-    value: 10
-  - name: Loc11
-    description: Location 11.
-    value: 11
-  - name: Loc12
-    description: Location 12.
-    value: 12
-  - name: Loc13
-    description: Location 13.
-    value: 13
-  - name: Loc14
-    description: Location 14.
-    value: 14
-  - name: Loc15
-    description: Location 15.
-    value: 15
-  - name: Loc16
-    description: Location 16.
-    value: 16
-  - name: Loc17
-    description: Location 17.
-    value: 17
-  - name: Loc18
-    description: Location 18.
-    value: 18
-  - name: Loc19
-    description: Location 19.
-    value: 19
-  - name: Loc2
-    description: Location 2.
-    value: 2
-  - name: Loc20
-    description: Location 20.
-    value: 20
-  - name: Loc21
-    description: Location 21.
-    value: 21
-  - name: Loc22
-    description: Location 22.
-    value: 22
-  - name: Loc23
-    description: Location 23.
-    value: 23
-  - name: Loc24
-    description: Location 24.
-    value: 24
-  - name: Loc25
-    description: Location 25.
-    value: 25
-  - name: Loc26
-    description: Location 26.
-    value: 26
-  - name: Loc27
-    description: Location 27.
-    value: 27
-  - name: Loc28
-    description: Location 28.
-    value: 28
-  - name: Loc29
-    description: Location 29.
-    value: 29
-  - name: Loc3
-    description: Location 3.
-    value: 3
-  - name: Loc30
-    description: Location 30.
-    value: 30
-  - name: Loc31
-    description: Location 31.
-    value: 31
-  - name: Loc4
-    description: Location 4.
-    value: 4
-  - name: Loc5
-    description: Location 5.
-    value: 5
-  - name: Loc6
-    description: Location 6.
-    value: 6
-  - name: Loc7
-    description: Location 7.
-    value: 7
-  - name: Loc8
-    description: Location 8.
-    value: 8
-  - name: Loc9
-    description: Location 9.
-    value: 9
-enum/timer::vals::Cc3CtrlCmoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on compare match.
-    value: 2
-  - name: None
-    description: No action on compare match.
-    value: 0
-  - name: Set
-    description: Set output on compare match.
-    value: 3
-  - name: Toggle
-    description: Toggle output on compare match.
-    value: 1
-enum/timer::vals::Cc3CtrlCofoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on counter overflow.
-    value: 2
-  - name: None
-    description: No action on counter overflow.
-    value: 0
-  - name: Set
-    description: Set output on counter overflow.
-    value: 3
-  - name: Toggle
-    description: Toggle output on counter overflow.
-    value: 1
-enum/timer::vals::Cc3CtrlCufoa:
-  bit_size: 2
-  variants:
-  - name: Clear
-    description: Clear output on counter underflow.
-    value: 2
-  - name: None
-    description: No action on counter underflow.
-    value: 0
-  - name: Set
-    description: Set output on counter underflow.
-    value: 3
-  - name: Toggle
-    description: Toggle output on counter underflow.
-    value: 1
-enum/timer::vals::Cc3CtrlIcedge:
-  bit_size: 2
-  variants:
-  - name: Both
-    description: Both edges detected.
-    value: 2
-  - name: Falling
-    description: Falling edges detected.
-    value: 1
-  - name: None
-    description: No edge detection, signal is left as it is.
-    value: 3
-  - name: Rising
-    description: Rising edges detected.
-    value: 0
-enum/timer::vals::Cc3CtrlIcevctrl:
-  bit_size: 2
-  variants:
-  - name: Everyedge
-    description: PRS output pulse and interrupt flag set on every capture.
-    value: 0
-  - name: Everysecondedge
-    description: PRS output pulse and interrupt flag set on every second capture.
-    value: 1
-  - name: Falling
-    description: PRS output pulse and interrupt flag set on falling edge only (if ICEDGE = BOTH).
-    value: 3
-  - name: Rising
-    description: PRS output pulse and interrupt flag set on rising edge only (if ICEDGE = BOTH).
-    value: 2
-enum/timer::vals::Cc3CtrlMode:
-  bit_size: 2
-  variants:
-  - name: Inputcapture
-    description: Input capture.
-    value: 1
-  - name: Off
-    description: Compare/Capture channel turned off.
-    value: 0
-  - name: Outputcompare
-    description: Output compare.
-    value: 2
-  - name: Pwm
-    description: Pulse-Width Modulation.
-    value: 3
-enum/timer::vals::Cc3loc:
+enum/timer::vals::Ccloc:
   bit_size: 6
   variants:
   - name: Loc0
