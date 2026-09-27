@@ -1,8 +1,8 @@
 #[doc = "CC Channel Value Register."]
 #[repr(transparent)]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Cc0Ccv(pub u32);
-impl Cc0Ccv {
+pub struct CcCcv(pub u32);
+impl CcCcv {
     #[doc = "CC Channel Value."]
     #[must_use]
     #[inline(always)]
@@ -16,28 +16,28 @@ impl Cc0Ccv {
         self.0 = (self.0 & !(0xffff << 0usize)) | (((val as u32) & 0xffff) << 0usize);
     }
 }
-impl Default for Cc0Ccv {
+impl Default for CcCcv {
     #[inline(always)]
-    fn default() -> Cc0Ccv {
-        Cc0Ccv(0)
+    fn default() -> CcCcv {
+        CcCcv(0)
     }
 }
-impl core::fmt::Debug for Cc0Ccv {
+impl core::fmt::Debug for CcCcv {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Cc0Ccv").field("ccv", &self.ccv()).finish()
+        f.debug_struct("CcCcv").field("ccv", &self.ccv()).finish()
     }
 }
 #[cfg(feature = "defmt")]
-impl defmt::Format for Cc0Ccv {
+impl defmt::Format for CcCcv {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Cc0Ccv {{ ccv: {=u16:?} }}", self.ccv())
+        defmt::write!(f, "CcCcv {{ ccv: {=u16:?} }}", self.ccv())
     }
 }
 #[doc = "CC Channel Buffer Register."]
 #[repr(transparent)]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Cc0Ccvb(pub u32);
-impl Cc0Ccvb {
+pub struct CcCcvb(pub u32);
+impl CcCcvb {
     #[doc = "CC Channel Value Buffer."]
     #[must_use]
     #[inline(always)]
@@ -51,30 +51,30 @@ impl Cc0Ccvb {
         self.0 = (self.0 & !(0xffff << 0usize)) | (((val as u32) & 0xffff) << 0usize);
     }
 }
-impl Default for Cc0Ccvb {
+impl Default for CcCcvb {
     #[inline(always)]
-    fn default() -> Cc0Ccvb {
-        Cc0Ccvb(0)
+    fn default() -> CcCcvb {
+        CcCcvb(0)
     }
 }
-impl core::fmt::Debug for Cc0Ccvb {
+impl core::fmt::Debug for CcCcvb {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Cc0Ccvb")
+        f.debug_struct("CcCcvb")
             .field("ccvb", &self.ccvb())
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
-impl defmt::Format for Cc0Ccvb {
+impl defmt::Format for CcCcvb {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Cc0Ccvb {{ ccvb: {=u16:?} }}", self.ccvb())
+        defmt::write!(f, "CcCcvb {{ ccvb: {=u16:?} }}", self.ccvb())
     }
 }
 #[doc = "CC Channel Value Peek Register."]
 #[repr(transparent)]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Cc0Ccvp(pub u32);
-impl Cc0Ccvp {
+pub struct CcCcvp(pub u32);
+impl CcCcvp {
     #[doc = "CC Channel Value Peek."]
     #[must_use]
     #[inline(always)]
@@ -88,30 +88,30 @@ impl Cc0Ccvp {
         self.0 = (self.0 & !(0xffff << 0usize)) | (((val as u32) & 0xffff) << 0usize);
     }
 }
-impl Default for Cc0Ccvp {
+impl Default for CcCcvp {
     #[inline(always)]
-    fn default() -> Cc0Ccvp {
-        Cc0Ccvp(0)
+    fn default() -> CcCcvp {
+        CcCcvp(0)
     }
 }
-impl core::fmt::Debug for Cc0Ccvp {
+impl core::fmt::Debug for CcCcvp {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Cc0Ccvp")
+        f.debug_struct("CcCcvp")
             .field("ccvp", &self.ccvp())
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
-impl defmt::Format for Cc0Ccvp {
+impl defmt::Format for CcCcvp {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Cc0Ccvp {{ ccvp: {=u16:?} }}", self.ccvp())
+        defmt::write!(f, "CcCcvp {{ ccvp: {=u16:?} }}", self.ccvp())
     }
 }
 #[doc = "CC Channel Control Register."]
 #[repr(transparent)]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Cc0Ctrl(pub u32);
-impl Cc0Ctrl {
+pub struct CcCtrl(pub u32);
+impl CcCtrl {
     #[doc = "CC Channel Mode."]
     #[must_use]
     #[inline(always)]
@@ -257,15 +257,15 @@ impl Cc0Ctrl {
         self.0 = (self.0 & !(0x01 << 30usize)) | (((val as u32) & 0x01) << 30usize);
     }
 }
-impl Default for Cc0Ctrl {
+impl Default for CcCtrl {
     #[inline(always)]
-    fn default() -> Cc0Ctrl {
-        Cc0Ctrl(0)
+    fn default() -> CcCtrl {
+        CcCtrl(0)
     }
 }
-impl core::fmt::Debug for Cc0Ctrl {
+impl core::fmt::Debug for CcCtrl {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Cc0Ctrl")
+        f.debug_struct("CcCtrl")
             .field("mode", &self.mode())
             .field("outinv", &self.outinv())
             .field("coist", &self.coist())
@@ -282,9 +282,9 @@ impl core::fmt::Debug for Cc0Ctrl {
     }
 }
 #[cfg(feature = "defmt")]
-impl defmt::Format for Cc0Ctrl {
+impl defmt::Format for CcCtrl {
     fn format(&self, f: defmt::Formatter) {
-        defmt :: write ! (f , "Cc0Ctrl {{ mode: {:?}, outinv: {=bool:?}, coist: {=bool:?}, cmoa: {:?}, cofoa: {:?}, cufoa: {:?}, prssel: {:?}, icedge: {:?}, icevctrl: {:?}, prsconf: {=bool:?}, insel: {=bool:?}, filt: {=bool:?} }}" , self . mode () , self . outinv () , self . coist () , self . cmoa () , self . cofoa () , self . cufoa () , self . prssel () , self . icedge () , self . icevctrl () , self . prsconf () , self . insel () , self . filt ())
+        defmt :: write ! (f , "CcCtrl {{ mode: {:?}, outinv: {=bool:?}, coist: {=bool:?}, cmoa: {:?}, cofoa: {:?}, cufoa: {:?}, prssel: {:?}, icedge: {:?}, icevctrl: {:?}, prsconf: {=bool:?}, insel: {=bool:?}, filt: {=bool:?} }}" , self . mode () , self . outinv () , self . coist () , self . cmoa () , self . cofoa () , self . cufoa () , self . prssel () , self . icedge () , self . icevctrl () , self . prsconf () , self . insel () , self . filt ())
     }
 }
 #[doc = "Command Register."]

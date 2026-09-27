@@ -67,14 +67,24 @@ transforms:
   # ===========================================================================
   # TIMER CC: the CC1/CC2/CC3 fieldsets are identical copies of CC0 (same
   # fields and bit positions; only the per-instance enum names differ).  Merge
-  # them into CC0 so all CC channels share one set of fieldset types.  This
+  # them into CC so all CC channels share one set of fieldset types.  This
   # mirrors the RTCC CC merge below.
   # ===========================================================================
   - !MergeFieldsets
       from: "timer::regs::Cc[0-3](.+)"
-      to: "timer::regs::Cc0$1"
-      main: "timer::regs::Cc0.*"
+      to: "timer::regs::Cc$1"
+      main: "timer::regs::Cc.*"
       check: NoCheck
+
+  # ===========================================================================
+  # TIMER: collapse the 4 flat CH0_*..CH3_* channel registers into a cluster.
+  # ===========================================================================
+  - !MakeBlock
+      blocks: "timer::Timer"
+      from: "cc(\\d+)_(.+)"
+      to_outer: "ch$1"
+      to_inner: "$2"
+      to_block: "timer::Channel"
 
   # ===========================================================================
   # PRSCH enum merging: the 12-variant PRS channel selector enum (Prsch0..11)

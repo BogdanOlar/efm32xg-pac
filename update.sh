@@ -19,7 +19,7 @@ chiptool gen-common --output src/common.rs
 rm -rf src/efm32*
 
 for chip in efm32pg1b efm32gg11; do
-    chiptool generate --svd svd/$chip.svd --transform svd/$chip.yaml --common-module crate::common
+    chiptool generate --debug-ir-output ./ir_$chip.yaml --svd svd/$chip.svd --transform svd/$chip.yaml --common-module crate::common
     rustfmt lib.rs
     sed -i '/#!\[no_std\]/d' lib.rs
     form -i lib.rs -o src/$chip

@@ -1,3 +1,39 @@
+#[derive(Copy, Clone, Eq, PartialEq)]
+pub struct Channel {
+    ptr: *mut u8,
+}
+unsafe impl Send for Channel {}
+unsafe impl Sync for Channel {}
+impl Channel {
+    #[inline(always)]
+    pub const unsafe fn from_ptr(ptr: *mut ()) -> Self {
+        Self { ptr: ptr as _ }
+    }
+    #[inline(always)]
+    pub const fn as_ptr(&self) -> *mut () {
+        self.ptr as _
+    }
+    #[doc = "CC Channel Control Register."]
+    #[inline(always)]
+    pub const fn ctrl(self) -> crate::common::Reg<regs::CcCtrl, crate::common::RW> {
+        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x0usize) as _) }
+    }
+    #[doc = "CC Channel Value Register."]
+    #[inline(always)]
+    pub const fn ccv(self) -> crate::common::Reg<regs::CcCcv, crate::common::RW> {
+        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x04usize) as _) }
+    }
+    #[doc = "CC Channel Value Peek Register."]
+    #[inline(always)]
+    pub const fn ccvp(self) -> crate::common::Reg<regs::CcCcvp, crate::common::R> {
+        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x08usize) as _) }
+    }
+    #[doc = "CC Channel Buffer Register."]
+    #[inline(always)]
+    pub const fn ccvb(self) -> crate::common::Reg<regs::CcCcvb, crate::common::RW> {
+        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x0cusize) as _) }
+    }
+}
 #[doc = "TIMER0."]
 #[derive(Copy, Clone, Eq, PartialEq)]
 pub struct Timer {
@@ -84,85 +120,21 @@ impl Timer {
     pub const fn routeloc2(self) -> crate::common::Reg<regs::Routeloc2, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x3cusize) as _) }
     }
-    #[doc = "CC Channel Control Register."]
     #[inline(always)]
-    pub const fn cc0_ctrl(self) -> crate::common::Reg<regs::Cc0Ctrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x60usize) as _) }
+    pub const fn ch0(self) -> Channel {
+        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x60usize) as _) }
     }
-    #[doc = "CC Channel Value Register."]
     #[inline(always)]
-    pub const fn cc0_ccv(self) -> crate::common::Reg<regs::Cc0Ccv, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x64usize) as _) }
+    pub const fn ch1(self) -> Channel {
+        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x70usize) as _) }
     }
-    #[doc = "CC Channel Value Peek Register."]
     #[inline(always)]
-    pub const fn cc0_ccvp(self) -> crate::common::Reg<regs::Cc0Ccvp, crate::common::R> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x68usize) as _) }
+    pub const fn ch2(self) -> Channel {
+        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x80usize) as _) }
     }
-    #[doc = "CC Channel Buffer Register."]
     #[inline(always)]
-    pub const fn cc0_ccvb(self) -> crate::common::Reg<regs::Cc0Ccvb, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x6cusize) as _) }
-    }
-    #[doc = "CC Channel Control Register."]
-    #[inline(always)]
-    pub const fn cc1_ctrl(self) -> crate::common::Reg<regs::Cc0Ctrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x70usize) as _) }
-    }
-    #[doc = "CC Channel Value Register."]
-    #[inline(always)]
-    pub const fn cc1_ccv(self) -> crate::common::Reg<regs::Cc0Ccv, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x74usize) as _) }
-    }
-    #[doc = "CC Channel Value Peek Register."]
-    #[inline(always)]
-    pub const fn cc1_ccvp(self) -> crate::common::Reg<regs::Cc0Ccvp, crate::common::R> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x78usize) as _) }
-    }
-    #[doc = "CC Channel Buffer Register."]
-    #[inline(always)]
-    pub const fn cc1_ccvb(self) -> crate::common::Reg<regs::Cc0Ccvb, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x7cusize) as _) }
-    }
-    #[doc = "CC Channel Control Register."]
-    #[inline(always)]
-    pub const fn cc2_ctrl(self) -> crate::common::Reg<regs::Cc0Ctrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x80usize) as _) }
-    }
-    #[doc = "CC Channel Value Register."]
-    #[inline(always)]
-    pub const fn cc2_ccv(self) -> crate::common::Reg<regs::Cc0Ccv, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x84usize) as _) }
-    }
-    #[doc = "CC Channel Value Peek Register."]
-    #[inline(always)]
-    pub const fn cc2_ccvp(self) -> crate::common::Reg<regs::Cc0Ccvp, crate::common::R> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x88usize) as _) }
-    }
-    #[doc = "CC Channel Buffer Register."]
-    #[inline(always)]
-    pub const fn cc2_ccvb(self) -> crate::common::Reg<regs::Cc0Ccvb, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x8cusize) as _) }
-    }
-    #[doc = "CC Channel Control Register."]
-    #[inline(always)]
-    pub const fn cc3_ctrl(self) -> crate::common::Reg<regs::Cc0Ctrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x90usize) as _) }
-    }
-    #[doc = "CC Channel Value Register."]
-    #[inline(always)]
-    pub const fn cc3_ccv(self) -> crate::common::Reg<regs::Cc0Ccv, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x94usize) as _) }
-    }
-    #[doc = "CC Channel Value Peek Register."]
-    #[inline(always)]
-    pub const fn cc3_ccvp(self) -> crate::common::Reg<regs::Cc0Ccvp, crate::common::R> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x98usize) as _) }
-    }
-    #[doc = "CC Channel Buffer Register."]
-    #[inline(always)]
-    pub const fn cc3_ccvb(self) -> crate::common::Reg<regs::Cc0Ccvb, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x9cusize) as _) }
+    pub const fn ch3(self) -> Channel {
+        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x90usize) as _) }
     }
     #[doc = "DTI Control Register."]
     #[inline(always)]
