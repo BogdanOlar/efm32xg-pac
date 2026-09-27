@@ -1719,49 +1719,49 @@ impl Routeloc0 {
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc0loc(&self) -> super::vals::Ccloc {
+    pub const fn cc0loc(&self) -> super::vals::CcLoc {
         let val = (self.0 >> 0usize) & 0x3f;
-        super::vals::Ccloc::from_bits(val as u8)
+        super::vals::CcLoc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc0loc(&mut self, val: super::vals::Ccloc) {
+    pub const fn set_cc0loc(&mut self, val: super::vals::CcLoc) {
         self.0 = (self.0 & !(0x3f << 0usize)) | (((val.to_bits() as u32) & 0x3f) << 0usize);
     }
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc1loc(&self) -> super::vals::Ccloc {
+    pub const fn cc1loc(&self) -> super::vals::CcLoc {
         let val = (self.0 >> 8usize) & 0x3f;
-        super::vals::Ccloc::from_bits(val as u8)
+        super::vals::CcLoc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc1loc(&mut self, val: super::vals::Ccloc) {
+    pub const fn set_cc1loc(&mut self, val: super::vals::CcLoc) {
         self.0 = (self.0 & !(0x3f << 8usize)) | (((val.to_bits() as u32) & 0x3f) << 8usize);
     }
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc2loc(&self) -> super::vals::Ccloc {
+    pub const fn cc2loc(&self) -> super::vals::CcLoc {
         let val = (self.0 >> 16usize) & 0x3f;
-        super::vals::Ccloc::from_bits(val as u8)
+        super::vals::CcLoc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc2loc(&mut self, val: super::vals::Ccloc) {
+    pub const fn set_cc2loc(&mut self, val: super::vals::CcLoc) {
         self.0 = (self.0 & !(0x3f << 16usize)) | (((val.to_bits() as u32) & 0x3f) << 16usize);
     }
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc3loc(&self) -> super::vals::Ccloc {
+    pub const fn cc3loc(&self) -> super::vals::CcLoc {
         let val = (self.0 >> 24usize) & 0x3f;
-        super::vals::Ccloc::from_bits(val as u8)
+        super::vals::CcLoc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc3loc(&mut self, val: super::vals::Ccloc) {
+    pub const fn set_cc3loc(&mut self, val: super::vals::CcLoc) {
         self.0 = (self.0 & !(0x3f << 24usize)) | (((val.to_bits() as u32) & 0x3f) << 24usize);
     }
 }

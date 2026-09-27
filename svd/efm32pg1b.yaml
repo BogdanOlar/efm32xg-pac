@@ -93,7 +93,11 @@ transforms:
       from: "timer::vals::Cc[0-3](.+)"
       to: "timer::vals::Cc$1"
       check: NoCheck
-      skip_unmergeable: true    
+      skip_unmergeable: true
+  # Fix `CcLoc` name
+  - !Rename
+      from: "timer::vals::Ccloc"
+      to: "timer::vals::CcLoc"
 
   # ===========================================================================
   # PRSCH enum merging: the 12-variant PRS channel selector enum (Prsch0..11)

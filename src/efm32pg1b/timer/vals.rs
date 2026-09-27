@@ -211,7 +211,7 @@ impl From<CcCtrlMode> for u8 {
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-pub enum Ccloc {
+pub enum CcLoc {
     #[doc = "Location 0."]
     Loc0 = 0x0,
     #[doc = "Location 1."]
@@ -309,9 +309,9 @@ pub enum Ccloc {
     _RESERVED_3e = 0x3e,
     _RESERVED_3f = 0x3f,
 }
-impl Ccloc {
+impl CcLoc {
     #[inline(always)]
-    pub const fn from_bits(val: u8) -> Ccloc {
+    pub const fn from_bits(val: u8) -> CcLoc {
         unsafe { core::mem::transmute(val & 0x3f) }
     }
     #[inline(always)]
@@ -319,16 +319,16 @@ impl Ccloc {
         unsafe { core::mem::transmute(self) }
     }
 }
-impl From<u8> for Ccloc {
+impl From<u8> for CcLoc {
     #[inline(always)]
-    fn from(val: u8) -> Ccloc {
-        Ccloc::from_bits(val)
+    fn from(val: u8) -> CcLoc {
+        CcLoc::from_bits(val)
     }
 }
-impl From<Ccloc> for u8 {
+impl From<CcLoc> for u8 {
     #[inline(always)]
-    fn from(val: Ccloc) -> u8 {
-        Ccloc::to_bits(val)
+    fn from(val: CcLoc) -> u8 {
+        CcLoc::to_bits(val)
     }
 }
 #[repr(u8)]
