@@ -100,6 +100,24 @@ transforms:
       to: "timer::vals::CcLoc"
 
   # ===========================================================================
+  # PRS: merge CH0Ctrl,CH1Ctrl...CH11Ctrl fieldsets
+  # ===========================================================================
+  - !MergeFieldsets
+      from: "prs::regs::Ch(\\d+)Ctrl"
+      to: "prs::regs::ChCtrl"
+      main: "prs::regs::ChCtrl"
+      check: NoCheck
+
+  # ===========================================================================
+  # PRS: merge CHxCtrl enums (ChCtrlEdsel, ChCtrlSourcesel)
+  # ===========================================================================  
+  - !MergeEnums
+      from: "prs::vals::Ch(\\d+)Ctrl(.+)"
+      to: "prs::vals::ChCtrl$2"
+      check: NoCheck
+      skip_unmergeable: true
+
+  # ===========================================================================
   # PRSCH enum merging: the 12-variant PRS channel selector enum (Prsch0..11)
   # is duplicated under many names across peripherals.  Merge them all into
   # prs::vals::Prssel.
