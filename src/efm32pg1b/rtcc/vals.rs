@@ -105,6 +105,61 @@ impl From<Cc0CtrlMode> for u8 {
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Cc0CtrlPrssel {
+    #[doc = "PRS Channel 0 selected as input."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected as input."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected as input."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected as input."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected as input."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected as input."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected as input."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected as input."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected as input."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected as input."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected as input."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected as input."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Cc0CtrlPrssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Cc0CtrlPrssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Cc0CtrlPrssel {
+    #[inline(always)]
+    fn from(val: u8) -> Cc0CtrlPrssel {
+        Cc0CtrlPrssel::from_bits(val)
+    }
+}
+impl From<Cc0CtrlPrssel> for u8 {
+    #[inline(always)]
+    fn from(val: Cc0CtrlPrssel) -> u8 {
+        Cc0CtrlPrssel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum Cc1CtrlCmoa {
     #[doc = "A single clock cycle pulse is generated on output."]
     Pulse = 0x0,
@@ -209,6 +264,61 @@ impl From<Cc1CtrlMode> for u8 {
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Cc1CtrlPrssel {
+    #[doc = "PRS Channel 0 selected as input."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected as input."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected as input."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected as input."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected as input."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected as input."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected as input."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected as input."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected as input."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected as input."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected as input."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected as input."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Cc1CtrlPrssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Cc1CtrlPrssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Cc1CtrlPrssel {
+    #[inline(always)]
+    fn from(val: u8) -> Cc1CtrlPrssel {
+        Cc1CtrlPrssel::from_bits(val)
+    }
+}
+impl From<Cc1CtrlPrssel> for u8 {
+    #[inline(always)]
+    fn from(val: Cc1CtrlPrssel) -> u8 {
+        Cc1CtrlPrssel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum Cc2CtrlCmoa {
     #[doc = "A single clock cycle pulse is generated on output."]
     Pulse = 0x0,
@@ -308,6 +418,61 @@ impl From<Cc2CtrlMode> for u8 {
     #[inline(always)]
     fn from(val: Cc2CtrlMode) -> u8 {
         Cc2CtrlMode::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Cc2CtrlPrssel {
+    #[doc = "PRS Channel 0 selected as input."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected as input."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected as input."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected as input."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected as input."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected as input."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected as input."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected as input."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected as input."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected as input."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected as input."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected as input."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Cc2CtrlPrssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Cc2CtrlPrssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Cc2CtrlPrssel {
+    #[inline(always)]
+    fn from(val: u8) -> Cc2CtrlPrssel {
+        Cc2CtrlPrssel::from_bits(val)
+    }
+}
+impl From<Cc2CtrlPrssel> for u8 {
+    #[inline(always)]
+    fn from(val: Cc2CtrlPrssel) -> u8 {
+        Cc2CtrlPrssel::to_bits(val)
     }
 }
 #[repr(u8)]

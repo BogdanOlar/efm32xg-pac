@@ -224,13 +224,13 @@ impl Ctrl {
     #[doc = "IDAC Output Enable PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::Prssel {
         let val = (self.0 >> 20usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Prssel::from_bits(val as u8)
     }
     #[doc = "IDAC Output Enable PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::Prssel) {
         self.0 = (self.0 & !(0x0f << 20usize)) | (((val.to_bits() as u32) & 0x0f) << 20usize);
     }
 }

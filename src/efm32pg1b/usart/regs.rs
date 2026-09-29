@@ -1585,13 +1585,13 @@ impl Input {
     #[doc = "RX PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn rxprssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn rxprssel(&self) -> super::vals::Rxprssel {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Rxprssel::from_bits(val as u8)
     }
     #[doc = "RX PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_rxprssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_rxprssel(&mut self, val: super::vals::Rxprssel) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "PRS RX Enable."]
@@ -1609,13 +1609,13 @@ impl Input {
     #[doc = "CLK PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn clkprssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn clkprssel(&self) -> super::vals::Clkprssel {
         let val = (self.0 >> 8usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Clkprssel::from_bits(val as u8)
     }
     #[doc = "CLK PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_clkprssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_clkprssel(&mut self, val: super::vals::Clkprssel) {
         self.0 = (self.0 & !(0x0f << 8usize)) | (((val.to_bits() as u32) & 0x0f) << 8usize);
     }
     #[doc = "PRS CLK Enable."]
@@ -1716,13 +1716,13 @@ impl Irctrl {
     #[doc = "IrDA PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn irprssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn irprssel(&self) -> super::vals::Irprssel {
         let val = (self.0 >> 8usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Irprssel::from_bits(val as u8)
     }
     #[doc = "IrDA PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_irprssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_irprssel(&mut self, val: super::vals::Irprssel) {
         self.0 = (self.0 & !(0x0f << 8usize)) | (((val.to_bits() as u32) & 0x0f) << 8usize);
     }
 }
@@ -3103,13 +3103,13 @@ impl Trigctrl {
     #[doc = "Trigger PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn tsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn tsel(&self) -> super::vals::Tsel {
         let val = (self.0 >> 16usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Tsel::from_bits(val as u8)
     }
     #[doc = "Trigger PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_tsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_tsel(&mut self, val: super::vals::Tsel) {
         self.0 = (self.0 & !(0x0f << 16usize)) | (((val.to_bits() as u32) & 0x0f) << 16usize);
     }
 }

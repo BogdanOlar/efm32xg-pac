@@ -187,13 +187,13 @@ impl CcCtrl {
     #[doc = "Compare/Capture Channel PRS Input Channel Selection."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::CcCtrlPrssel {
         let val = (self.0 >> 16usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::CcCtrlPrssel::from_bits(val as u8)
     }
     #[doc = "Compare/Capture Channel PRS Input Channel Selection."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::CcCtrlPrssel) {
         self.0 = (self.0 & !(0x0f << 16usize)) | (((val.to_bits() as u32) & 0x0f) << 16usize);
     }
     #[doc = "Input Capture Edge Select."]
@@ -626,13 +626,13 @@ impl Dtctrl {
     #[doc = "DTI PRS Source Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn dtprssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn dtprssel(&self) -> super::vals::Dtprssel {
         let val = (self.0 >> 4usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Dtprssel::from_bits(val as u8)
     }
     #[doc = "DTI PRS Source Channel Select."]
     #[inline(always)]
-    pub const fn set_dtprssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_dtprssel(&mut self, val: super::vals::Dtprssel) {
         self.0 = (self.0 & !(0x0f << 4usize)) | (((val.to_bits() as u32) & 0x0f) << 4usize);
     }
     #[doc = "DTI Always Run."]
@@ -858,25 +858,25 @@ impl Dtfc {
     #[doc = "DTI PRS Fault Source 0 Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn dtprs0fsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn dtprs0fsel(&self) -> super::vals::Dtprs0fsel {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Dtprs0fsel::from_bits(val as u8)
     }
     #[doc = "DTI PRS Fault Source 0 Select."]
     #[inline(always)]
-    pub const fn set_dtprs0fsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_dtprs0fsel(&mut self, val: super::vals::Dtprs0fsel) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "DTI PRS Fault Source 1 Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn dtprs1fsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn dtprs1fsel(&self) -> super::vals::Dtprs1fsel {
         let val = (self.0 >> 8usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Dtprs1fsel::from_bits(val as u8)
     }
     #[doc = "DTI PRS Fault Source 1 Select."]
     #[inline(always)]
-    pub const fn set_dtprs1fsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_dtprs1fsel(&mut self, val: super::vals::Dtprs1fsel) {
         self.0 = (self.0 & !(0x0f << 8usize)) | (((val.to_bits() as u32) & 0x0f) << 8usize);
     }
     #[doc = "DTI Fault Action."]

@@ -337,13 +337,13 @@ impl Ctrl {
     #[doc = "TCC PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn tccprssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn tccprssel(&self) -> super::vals::Tccprssel {
         let val = (self.0 >> 26usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Tccprssel::from_bits(val as u8)
     }
     #[doc = "TCC PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_tccprssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_tccprssel(&mut self, val: super::vals::Tccprssel) {
         self.0 = (self.0 & !(0x0f << 26usize)) | (((val.to_bits() as u32) & 0x0f) << 26usize);
     }
     #[doc = "TOPB High Frequency Value Select."]
@@ -747,13 +747,13 @@ impl Input {
     #[doc = "S0IN PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn s0prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn s0prssel(&self) -> super::vals::S0prssel {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::S0prssel::from_bits(val as u8)
     }
     #[doc = "S0IN PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_s0prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_s0prssel(&mut self, val: super::vals::S0prssel) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "S0IN PRS Enable."]
@@ -771,13 +771,13 @@ impl Input {
     #[doc = "S1IN PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn s1prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn s1prssel(&self) -> super::vals::S1prssel {
         let val = (self.0 >> 6usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::S1prssel::from_bits(val as u8)
     }
     #[doc = "S1IN PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_s1prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_s1prssel(&mut self, val: super::vals::S1prssel) {
         self.0 = (self.0 & !(0x0f << 6usize)) | (((val.to_bits() as u32) & 0x0f) << 6usize);
     }
     #[doc = "S1IN PRS Enable."]

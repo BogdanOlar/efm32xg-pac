@@ -599,37 +599,37 @@ impl Prssel {
     #[doc = "PRS Start Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prsstartsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prsstartsel(&self) -> super::vals::Prsstartsel {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Prsstartsel::from_bits(val as u8)
     }
     #[doc = "PRS Start Select."]
     #[inline(always)]
-    pub const fn set_prsstartsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prsstartsel(&mut self, val: super::vals::Prsstartsel) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "PRS Stop Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prsstopsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prsstopsel(&self) -> super::vals::Prsstopsel {
         let val = (self.0 >> 6usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Prsstopsel::from_bits(val as u8)
     }
     #[doc = "PRS Stop Select."]
     #[inline(always)]
-    pub const fn set_prsstopsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prsstopsel(&mut self, val: super::vals::Prsstopsel) {
         self.0 = (self.0 & !(0x0f << 6usize)) | (((val.to_bits() as u32) & 0x0f) << 6usize);
     }
     #[doc = "PRS Clear Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prsclearsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prsclearsel(&self) -> super::vals::Prsclearsel {
         let val = (self.0 >> 12usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Prsclearsel::from_bits(val as u8)
     }
     #[doc = "PRS Clear Select."]
     #[inline(always)]
-    pub const fn set_prsclearsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prsclearsel(&mut self, val: super::vals::Prsclearsel) {
         self.0 = (self.0 & !(0x0f << 12usize)) | (((val.to_bits() as u32) & 0x0f) << 12usize);
     }
     #[doc = "PRS Start Mode."]

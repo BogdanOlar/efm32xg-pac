@@ -211,6 +211,61 @@ impl From<CcCtrlMode> for u8 {
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum CcCtrlPrssel {
+    #[doc = "PRS Channel 0 selected as input."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected as input."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected as input."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected as input."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected as input."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected as input."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected as input."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected as input."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected as input."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected as input."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected as input."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected as input."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl CcCtrlPrssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> CcCtrlPrssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for CcCtrlPrssel {
+    #[inline(always)]
+    fn from(val: u8) -> CcCtrlPrssel {
+        CcCtrlPrssel::from_bits(val)
+    }
+}
+impl From<CcCtrlPrssel> for u8 {
+    #[inline(always)]
+    fn from(val: CcCtrlPrssel) -> u8 {
+        CcCtrlPrssel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum CcLoc {
     #[doc = "Location 0."]
     Loc0 = 0x0,
@@ -856,6 +911,171 @@ impl From<Dtpresc> for u8 {
     #[inline(always)]
     fn from(val: Dtpresc) -> u8 {
         Dtpresc::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Dtprs0fsel {
+    #[doc = "PRS Channel 0 selected as fault source 0."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected as fault source 1."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected as fault source 2."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected as fault source 3."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected as fault source 4."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected as fault source 5."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected as fault source 6."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected as fault source 7."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected as fault source 8."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected as fault source 9."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected as fault source 10."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected as fault source 11."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Dtprs0fsel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Dtprs0fsel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Dtprs0fsel {
+    #[inline(always)]
+    fn from(val: u8) -> Dtprs0fsel {
+        Dtprs0fsel::from_bits(val)
+    }
+}
+impl From<Dtprs0fsel> for u8 {
+    #[inline(always)]
+    fn from(val: Dtprs0fsel) -> u8 {
+        Dtprs0fsel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Dtprs1fsel {
+    #[doc = "PRS Channel 0 selected as fault source 1."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected as fault source 1."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected as fault source 1."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected as fault source 1."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected as fault source 1."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected as fault source 1."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected as fault source 1."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected as fault source 1."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected as fault source 1."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected as fault source 1."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected as fault source 1."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected as fault source 1."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Dtprs1fsel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Dtprs1fsel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Dtprs1fsel {
+    #[inline(always)]
+    fn from(val: u8) -> Dtprs1fsel {
+        Dtprs1fsel::from_bits(val)
+    }
+}
+impl From<Dtprs1fsel> for u8 {
+    #[inline(always)]
+    fn from(val: Dtprs1fsel) -> u8 {
+        Dtprs1fsel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Dtprssel {
+    #[doc = "PRS Channel 0 selected as input."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected as input."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected as input."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected as input."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected as input."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected as input."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected as input."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected as input."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected as input."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected as input."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected as input."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected as input."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Dtprssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Dtprssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Dtprssel {
+    #[inline(always)]
+    fn from(val: u8) -> Dtprssel {
+        Dtprssel::from_bits(val)
+    }
+}
+impl From<Dtprssel> for u8 {
+    #[inline(always)]
+    fn from(val: Dtprssel) -> u8 {
+        Dtprssel::to_bits(val)
     }
 }
 #[repr(u8)]

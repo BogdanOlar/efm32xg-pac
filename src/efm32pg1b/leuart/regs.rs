@@ -887,13 +887,13 @@ impl Input {
     #[doc = "RX PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn rxprssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn rxprssel(&self) -> super::vals::Rxprssel {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Rxprssel::from_bits(val as u8)
     }
     #[doc = "RX PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_rxprssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_rxprssel(&mut self, val: super::vals::Rxprssel) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "PRS RX Enable."]

@@ -501,13 +501,13 @@ impl Pch0Prsctrl {
     #[doc = "PRS Channel PRS Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::Pch0PrsctrlPrssel {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Pch0PrsctrlPrssel::from_bits(val as u8)
     }
     #[doc = "PRS Channel PRS Select."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::Pch0PrsctrlPrssel) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "PRS Missing Event Will Trigger a Watchdog Reset."]
@@ -556,13 +556,13 @@ impl Pch1Prsctrl {
     #[doc = "PRS Channel PRS Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::Pch1PrsctrlPrssel {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Pch1PrsctrlPrssel::from_bits(val as u8)
     }
     #[doc = "PRS Channel PRS Select."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::Pch1PrsctrlPrssel) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "PRS Missing Event Will Trigger a Watchdog Reset."]

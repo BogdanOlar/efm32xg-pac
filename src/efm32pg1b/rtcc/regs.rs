@@ -42,13 +42,13 @@ impl Cc0Ctrl {
     #[doc = "Compare/Capture Channel PRS Input Channel Selection."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::Cc0CtrlPrssel {
         let val = (self.0 >> 6usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Cc0CtrlPrssel::from_bits(val as u8)
     }
     #[doc = "Compare/Capture Channel PRS Input Channel Selection."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::Cc0CtrlPrssel) {
         self.0 = (self.0 & !(0x0f << 6usize)) | (((val.to_bits() as u32) & 0x0f) << 6usize);
     }
     #[doc = "Capture Compare Channel Comparison Base."]

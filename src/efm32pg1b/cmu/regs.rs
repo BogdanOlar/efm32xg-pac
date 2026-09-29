@@ -262,25 +262,25 @@ impl Calctrl {
     #[doc = "PRS Select for PRS Input When Selected in UPSEL."]
     #[must_use]
     #[inline(always)]
-    pub const fn prsupsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prsupsel(&self) -> super::vals::Prsupsel {
         let val = (self.0 >> 16usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Prsupsel::from_bits(val as u8)
     }
     #[doc = "PRS Select for PRS Input When Selected in UPSEL."]
     #[inline(always)]
-    pub const fn set_prsupsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prsupsel(&mut self, val: super::vals::Prsupsel) {
         self.0 = (self.0 & !(0x0f << 16usize)) | (((val.to_bits() as u32) & 0x0f) << 16usize);
     }
     #[doc = "PRS Select for PRS Input When Selected in DOWNSEL."]
     #[must_use]
     #[inline(always)]
-    pub const fn prsdownsel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prsdownsel(&self) -> super::vals::Prsdownsel {
         let val = (self.0 >> 24usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::Prsdownsel::from_bits(val as u8)
     }
     #[doc = "PRS Select for PRS Input When Selected in DOWNSEL."]
     #[inline(always)]
-    pub const fn set_prsdownsel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prsdownsel(&mut self, val: super::vals::Prsdownsel) {
         self.0 = (self.0 & !(0x0f << 24usize)) | (((val.to_bits() as u32) & 0x0f) << 24usize);
     }
 }

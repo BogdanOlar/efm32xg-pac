@@ -127,17 +127,6 @@ transforms:
       skip_unmergeable: true
 
   # ===========================================================================
-  # PRSCH enum merging: the 12-variant PRS channel selector enum (Prsch0..11)
-  # is duplicated under many names across peripherals.  Merge them all into
-  # prs::vals::Prssel.
-  # ===========================================================================
-  - !MergeEnums
-      from: ".+::vals::(.*[Pp][Rr][Ss].*[Ss]el|Tsel)"
-      to: "prs::vals::Prssel"
-      check: NoCheck
-      skip_unmergeable: true
-
-  # ===========================================================================
   # LDMA: collapse the 8 flat CH0_*..CH7_* channel registers into a cluster.
   # ===========================================================================
   - !MakeBlock

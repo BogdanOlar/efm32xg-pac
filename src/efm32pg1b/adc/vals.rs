@@ -826,6 +826,61 @@ impl From<ScanctrlRes> for u8 {
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum ScanctrlxPrssel {
+    #[doc = "PRS ch 0 triggers scan sequence."]
+    Prsch0 = 0x0,
+    #[doc = "PRS ch 1 triggers scan sequence."]
+    Prsch1 = 0x01,
+    #[doc = "PRS ch 2 triggers scan sequence."]
+    Prsch2 = 0x02,
+    #[doc = "PRS ch 3 triggers scan sequence."]
+    Prsch3 = 0x03,
+    #[doc = "PRS ch 4 triggers scan sequence."]
+    Prsch4 = 0x04,
+    #[doc = "PRS ch 5 triggers scan sequence."]
+    Prsch5 = 0x05,
+    #[doc = "PRS ch 6 triggers scan sequence."]
+    Prsch6 = 0x06,
+    #[doc = "PRS ch 7 triggers scan sequence."]
+    Prsch7 = 0x07,
+    #[doc = "PRS ch 8 triggers scan sequence."]
+    Prsch8 = 0x08,
+    #[doc = "PRS ch 9 triggers scan sequence."]
+    Prsch9 = 0x09,
+    #[doc = "PRS ch 10 triggers scan sequence."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS ch 11 triggers scan sequence."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl ScanctrlxPrssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> ScanctrlxPrssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for ScanctrlxPrssel {
+    #[inline(always)]
+    fn from(val: u8) -> ScanctrlxPrssel {
+        ScanctrlxPrssel::from_bits(val)
+    }
+}
+impl From<ScanctrlxPrssel> for u8 {
+    #[inline(always)]
+    fn from(val: ScanctrlxPrssel) -> u8 {
+        ScanctrlxPrssel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
 pub enum ScanctrlxVrefsel {
     #[doc = "Internal 0.83V Bandgap reference."]
     Vbgr = 0x0,
@@ -994,6 +1049,61 @@ impl From<SinglectrlRes> for u8 {
     #[inline(always)]
     fn from(val: SinglectrlRes) -> u8 {
         SinglectrlRes::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum SinglectrlxPrssel {
+    #[doc = "PRS ch 0 triggers single channel."]
+    Prsch0 = 0x0,
+    #[doc = "PRS ch 1 triggers single channel."]
+    Prsch1 = 0x01,
+    #[doc = "PRS ch 2 triggers single channel."]
+    Prsch2 = 0x02,
+    #[doc = "PRS ch 3 triggers single channel."]
+    Prsch3 = 0x03,
+    #[doc = "PRS ch 4 triggers single channel."]
+    Prsch4 = 0x04,
+    #[doc = "PRS ch 5 triggers single channel."]
+    Prsch5 = 0x05,
+    #[doc = "PRS ch 6 triggers single channel."]
+    Prsch6 = 0x06,
+    #[doc = "PRS ch 7 triggers single channel."]
+    Prsch7 = 0x07,
+    #[doc = "PRS ch 8 triggers single channel."]
+    Prsch8 = 0x08,
+    #[doc = "PRS ch 9 triggers single channel."]
+    Prsch9 = 0x09,
+    #[doc = "PRS ch 10 triggers single channel."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS ch 11 triggers single channel."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl SinglectrlxPrssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> SinglectrlxPrssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for SinglectrlxPrssel {
+    #[inline(always)]
+    fn from(val: u8) -> SinglectrlxPrssel {
+        SinglectrlxPrssel::from_bits(val)
+    }
+}
+impl From<SinglectrlxPrssel> for u8 {
+    #[inline(always)]
+    fn from(val: SinglectrlxPrssel) -> u8 {
+        SinglectrlxPrssel::to_bits(val)
     }
 }
 #[repr(u8)]

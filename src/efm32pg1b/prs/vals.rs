@@ -1367,39 +1367,39 @@ impl From<ChCtrlSourcesel> for u8 {
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-pub enum Prssel {
-    #[doc = "PRS ch 0 triggers scan sequence."]
+pub enum Dmareq0Prssel {
+    #[doc = "PRS Channel 0 selected."]
     Prsch0 = 0x0,
-    #[doc = "PRS ch 1 triggers scan sequence."]
+    #[doc = "PRS Channel 1 selected."]
     Prsch1 = 0x01,
-    #[doc = "PRS ch 2 triggers scan sequence."]
+    #[doc = "PRS Channel 2 selected."]
     Prsch2 = 0x02,
-    #[doc = "PRS ch 3 triggers scan sequence."]
+    #[doc = "PRS Channel 3 selected."]
     Prsch3 = 0x03,
-    #[doc = "PRS ch 4 triggers scan sequence."]
+    #[doc = "PRS Channel 4 selected."]
     Prsch4 = 0x04,
-    #[doc = "PRS ch 5 triggers scan sequence."]
+    #[doc = "PRS Channel 5 selected."]
     Prsch5 = 0x05,
-    #[doc = "PRS ch 6 triggers scan sequence."]
+    #[doc = "PRS Channel 6 selected."]
     Prsch6 = 0x06,
-    #[doc = "PRS ch 7 triggers scan sequence."]
+    #[doc = "PRS Channel 7 selected."]
     Prsch7 = 0x07,
-    #[doc = "PRS ch 8 triggers scan sequence."]
+    #[doc = "PRS Channel 8 selected."]
     Prsch8 = 0x08,
-    #[doc = "PRS ch 9 triggers scan sequence."]
+    #[doc = "PRS Channel 9 selected."]
     Prsch9 = 0x09,
-    #[doc = "PRS ch 10 triggers scan sequence."]
+    #[doc = "PRS Channel 10 selected."]
     Prsch10 = 0x0a,
-    #[doc = "PRS ch 11 triggers scan sequence."]
+    #[doc = "PRS Channel 11 selected."]
     Prsch11 = 0x0b,
     _RESERVED_c = 0x0c,
     _RESERVED_d = 0x0d,
     _RESERVED_e = 0x0e,
     _RESERVED_f = 0x0f,
 }
-impl Prssel {
+impl Dmareq0Prssel {
     #[inline(always)]
-    pub const fn from_bits(val: u8) -> Prssel {
+    pub const fn from_bits(val: u8) -> Dmareq0Prssel {
         unsafe { core::mem::transmute(val & 0x0f) }
     }
     #[inline(always)]
@@ -1407,15 +1407,125 @@ impl Prssel {
         unsafe { core::mem::transmute(self) }
     }
 }
-impl From<u8> for Prssel {
+impl From<u8> for Dmareq0Prssel {
     #[inline(always)]
-    fn from(val: u8) -> Prssel {
-        Prssel::from_bits(val)
+    fn from(val: u8) -> Dmareq0Prssel {
+        Dmareq0Prssel::from_bits(val)
     }
 }
-impl From<Prssel> for u8 {
+impl From<Dmareq0Prssel> for u8 {
     #[inline(always)]
-    fn from(val: Prssel) -> u8 {
-        Prssel::to_bits(val)
+    fn from(val: Dmareq0Prssel) -> u8 {
+        Dmareq0Prssel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Dmareq1Prssel {
+    #[doc = "PRS Channel 0 selected."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Dmareq1Prssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Dmareq1Prssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Dmareq1Prssel {
+    #[inline(always)]
+    fn from(val: u8) -> Dmareq1Prssel {
+        Dmareq1Prssel::from_bits(val)
+    }
+}
+impl From<Dmareq1Prssel> for u8 {
+    #[inline(always)]
+    fn from(val: Dmareq1Prssel) -> u8 {
+        Dmareq1Prssel::to_bits(val)
+    }
+}
+#[repr(u8)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
+#[cfg_attr(feature = "defmt", derive(defmt::Format))]
+pub enum Sevonprssel {
+    #[doc = "PRS Channel 0 selected."]
+    Prsch0 = 0x0,
+    #[doc = "PRS Channel 1 selected."]
+    Prsch1 = 0x01,
+    #[doc = "PRS Channel 2 selected."]
+    Prsch2 = 0x02,
+    #[doc = "PRS Channel 3 selected."]
+    Prsch3 = 0x03,
+    #[doc = "PRS Channel 4 selected."]
+    Prsch4 = 0x04,
+    #[doc = "PRS Channel 5 selected."]
+    Prsch5 = 0x05,
+    #[doc = "PRS Channel 6 selected."]
+    Prsch6 = 0x06,
+    #[doc = "PRS Channel 7 selected."]
+    Prsch7 = 0x07,
+    #[doc = "PRS Channel 8 selected."]
+    Prsch8 = 0x08,
+    #[doc = "PRS Channel 9 selected."]
+    Prsch9 = 0x09,
+    #[doc = "PRS Channel 10 selected."]
+    Prsch10 = 0x0a,
+    #[doc = "PRS Channel 11 selected."]
+    Prsch11 = 0x0b,
+    _RESERVED_c = 0x0c,
+    _RESERVED_d = 0x0d,
+    _RESERVED_e = 0x0e,
+    _RESERVED_f = 0x0f,
+}
+impl Sevonprssel {
+    #[inline(always)]
+    pub const fn from_bits(val: u8) -> Sevonprssel {
+        unsafe { core::mem::transmute(val & 0x0f) }
+    }
+    #[inline(always)]
+    pub const fn to_bits(self) -> u8 {
+        unsafe { core::mem::transmute(self) }
+    }
+}
+impl From<u8> for Sevonprssel {
+    #[inline(always)]
+    fn from(val: u8) -> Sevonprssel {
+        Sevonprssel::from_bits(val)
+    }
+}
+impl From<Sevonprssel> for u8 {
+    #[inline(always)]
+    fn from(val: Sevonprssel) -> u8 {
+        Sevonprssel::to_bits(val)
     }
 }

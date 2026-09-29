@@ -1572,13 +1572,13 @@ impl Scanctrlx {
     #[doc = "Scan Sequence PRS Trigger Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::ScanctrlxPrssel {
         let val = (self.0 >> 17usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::ScanctrlxPrssel::from_bits(val as u8)
     }
     #[doc = "Scan Sequence PRS Trigger Select."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::ScanctrlxPrssel) {
         self.0 = (self.0 & !(0x0f << 17usize)) | (((val.to_bits() as u32) & 0x0f) << 17usize);
     }
     #[doc = "Delay Next Conversion Start If CONVSTARTDELAYEN is Set."]
@@ -2272,13 +2272,13 @@ impl Singlectrlx {
     #[doc = "Single Channel PRS Trigger Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::super::prs::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::SinglectrlxPrssel {
         let val = (self.0 >> 17usize) & 0x0f;
-        super::super::prs::vals::Prssel::from_bits(val as u8)
+        super::vals::SinglectrlxPrssel::from_bits(val as u8)
     }
     #[doc = "Single Channel PRS Trigger Select."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::super::prs::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::SinglectrlxPrssel) {
         self.0 = (self.0 & !(0x0f << 17usize)) | (((val.to_bits() as u32) & 0x0f) << 17usize);
     }
     #[doc = "Delay Value for Next Conversion Start If CONVSTARTDELAYEN is Set."]

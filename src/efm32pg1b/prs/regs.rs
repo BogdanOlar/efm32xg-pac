@@ -146,13 +146,13 @@ impl Ctrl {
     #[doc = "SEVONPRS PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn sevonprssel(&self) -> super::vals::Prssel {
+    pub const fn sevonprssel(&self) -> super::vals::Sevonprssel {
         let val = (self.0 >> 1usize) & 0x0f;
-        super::vals::Prssel::from_bits(val as u8)
+        super::vals::Sevonprssel::from_bits(val as u8)
     }
     #[doc = "SEVONPRS PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_sevonprssel(&mut self, val: super::vals::Prssel) {
+    pub const fn set_sevonprssel(&mut self, val: super::vals::Sevonprssel) {
         self.0 = (self.0 & !(0x0f << 1usize)) | (((val.to_bits() as u32) & 0x0f) << 1usize);
     }
 }
@@ -189,13 +189,13 @@ impl DmaReq {
     #[doc = "DMA Request 0 PRS Channel Select."]
     #[must_use]
     #[inline(always)]
-    pub const fn prssel(&self) -> super::vals::Prssel {
+    pub const fn prssel(&self) -> super::vals::Dmareq0Prssel {
         let val = (self.0 >> 6usize) & 0x0f;
-        super::vals::Prssel::from_bits(val as u8)
+        super::vals::Dmareq0Prssel::from_bits(val as u8)
     }
     #[doc = "DMA Request 0 PRS Channel Select."]
     #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::vals::Prssel) {
+    pub const fn set_prssel(&mut self, val: super::vals::Dmareq0Prssel) {
         self.0 = (self.0 & !(0x0f << 6usize)) | (((val.to_bits() as u32) & 0x0f) << 6usize);
     }
 }
