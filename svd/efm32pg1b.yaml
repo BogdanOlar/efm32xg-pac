@@ -109,6 +109,15 @@ transforms:
       check: NoCheck
 
   # ===========================================================================
+  # PRS: merge Dmareq0, Dmareq1 fieldsets
+  # ===========================================================================
+  - !MergeFieldsets
+      from: "prs::regs::Dmareq[0-1]"
+      to: "prs::regs::DmaReq"
+      main: "prs::regs::DmaReq"
+      check: NoCheck
+
+  # ===========================================================================
   # PRS: merge CHxCtrl enums (ChCtrlEdsel, ChCtrlSourcesel)
   # ===========================================================================  
   - !MergeEnums

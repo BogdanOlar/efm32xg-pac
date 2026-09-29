@@ -51,12 +51,12 @@ impl Prs {
     }
     #[doc = "DMA Request 0 Register."]
     #[inline(always)]
-    pub const fn dmareq0(self) -> crate::common::Reg<regs::Dmareq0, crate::common::RW> {
+    pub const fn dmareq0(self) -> crate::common::Reg<regs::DmaReq, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x24usize) as _) }
     }
     #[doc = "DMA Request 1 Register."]
     #[inline(always)]
-    pub const fn dmareq1(self) -> crate::common::Reg<regs::Dmareq1, crate::common::RW> {
+    pub const fn dmareq1(self) -> crate::common::Reg<regs::DmaReq, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x28usize) as _) }
     }
     #[doc = "PRS Channel Values."]

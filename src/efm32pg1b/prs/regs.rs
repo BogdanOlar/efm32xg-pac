@@ -184,8 +184,8 @@ impl defmt::Format for Ctrl {
 #[doc = "DMA Request 0 Register."]
 #[repr(transparent)]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Dmareq0(pub u32);
-impl Dmareq0 {
+pub struct DmaReq(pub u32);
+impl DmaReq {
     #[doc = "DMA Request 0 PRS Channel Select."]
     #[must_use]
     #[inline(always)]
@@ -199,60 +199,23 @@ impl Dmareq0 {
         self.0 = (self.0 & !(0x0f << 6usize)) | (((val.to_bits() as u32) & 0x0f) << 6usize);
     }
 }
-impl Default for Dmareq0 {
+impl Default for DmaReq {
     #[inline(always)]
-    fn default() -> Dmareq0 {
-        Dmareq0(0)
+    fn default() -> DmaReq {
+        DmaReq(0)
     }
 }
-impl core::fmt::Debug for Dmareq0 {
+impl core::fmt::Debug for DmaReq {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Dmareq0")
+        f.debug_struct("DmaReq")
             .field("prssel", &self.prssel())
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
-impl defmt::Format for Dmareq0 {
+impl defmt::Format for DmaReq {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Dmareq0 {{ prssel: {:?} }}", self.prssel())
-    }
-}
-#[doc = "DMA Request 1 Register."]
-#[repr(transparent)]
-#[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Dmareq1(pub u32);
-impl Dmareq1 {
-    #[doc = "DMA Request 1 PRS Channel Select."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn prssel(&self) -> super::vals::Prssel {
-        let val = (self.0 >> 6usize) & 0x0f;
-        super::vals::Prssel::from_bits(val as u8)
-    }
-    #[doc = "DMA Request 1 PRS Channel Select."]
-    #[inline(always)]
-    pub const fn set_prssel(&mut self, val: super::vals::Prssel) {
-        self.0 = (self.0 & !(0x0f << 6usize)) | (((val.to_bits() as u32) & 0x0f) << 6usize);
-    }
-}
-impl Default for Dmareq1 {
-    #[inline(always)]
-    fn default() -> Dmareq1 {
-        Dmareq1(0)
-    }
-}
-impl core::fmt::Debug for Dmareq1 {
-    fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Dmareq1")
-            .field("prssel", &self.prssel())
-            .finish()
-    }
-}
-#[cfg(feature = "defmt")]
-impl defmt::Format for Dmareq1 {
-    fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Dmareq1 {{ prssel: {:?} }}", self.prssel())
+        defmt::write!(f, "DmaReq {{ prssel: {:?} }}", self.prssel())
     }
 }
 #[doc = "PRS Channel Values."]
