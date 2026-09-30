@@ -10,6 +10,7 @@ transforms:
   # noise.  Rename both the peripheral const (RenamePeripherals) and the
   # block/fieldset/enum paths (Rename).
   # ===========================================================================
+
   - !RenamePeripherals
       from: "(ADC|I2C|IDAC|LETIMER|LEUART|PCNT|WDOG)0"
       to: "$1"
@@ -25,6 +26,7 @@ transforms:
   # DTLOCK registers across MSC, EMU, RMU, CMU, TIMER, RTCC, GPIO.  Merge
   # into one canonical definition.
   # ===========================================================================
+  
   - !MergeEnums
       from: ".+::vals::.*Lockkey"
       to: "msc::vals::Lockkey"
