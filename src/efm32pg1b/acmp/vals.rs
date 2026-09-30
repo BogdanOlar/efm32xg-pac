@@ -44,7 +44,7 @@ impl From<Csressel> for u8 {
 #[repr(u8)]
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
 #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-pub enum Hysteresis0Hyst {
+pub enum HysteresisHyst {
     #[doc = "No hysteresis."]
     Hyst0 = 0x0,
     #[doc = "14 mV hysteresis."]
@@ -78,9 +78,9 @@ pub enum Hysteresis0Hyst {
     #[doc = "-45 mV hysteresis."]
     Hyst15 = 0x0f,
 }
-impl Hysteresis0Hyst {
+impl HysteresisHyst {
     #[inline(always)]
-    pub const fn from_bits(val: u8) -> Hysteresis0Hyst {
+    pub const fn from_bits(val: u8) -> HysteresisHyst {
         unsafe { core::mem::transmute(val & 0x0f) }
     }
     #[inline(always)]
@@ -88,75 +88,16 @@ impl Hysteresis0Hyst {
         unsafe { core::mem::transmute(self) }
     }
 }
-impl From<u8> for Hysteresis0Hyst {
+impl From<u8> for HysteresisHyst {
     #[inline(always)]
-    fn from(val: u8) -> Hysteresis0Hyst {
-        Hysteresis0Hyst::from_bits(val)
+    fn from(val: u8) -> HysteresisHyst {
+        HysteresisHyst::from_bits(val)
     }
 }
-impl From<Hysteresis0Hyst> for u8 {
+impl From<HysteresisHyst> for u8 {
     #[inline(always)]
-    fn from(val: Hysteresis0Hyst) -> u8 {
-        Hysteresis0Hyst::to_bits(val)
-    }
-}
-#[repr(u8)]
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Ord, PartialOrd)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-pub enum Hysteresis1Hyst {
-    #[doc = "No hysteresis."]
-    Hyst0 = 0x0,
-    #[doc = "14 mV hysteresis."]
-    Hyst1 = 0x01,
-    #[doc = "25 mV hysteresis."]
-    Hyst2 = 0x02,
-    #[doc = "30 mV hysteresis."]
-    Hyst3 = 0x03,
-    #[doc = "35 mV hysteresis."]
-    Hyst4 = 0x04,
-    #[doc = "39 mV hysteresis."]
-    Hyst5 = 0x05,
-    #[doc = "42 mV hysteresis."]
-    Hyst6 = 0x06,
-    #[doc = "45 mV hysteresis."]
-    Hyst7 = 0x07,
-    #[doc = "No hysteresis."]
-    Hyst8 = 0x08,
-    #[doc = "-14 mV hysteresis."]
-    Hyst9 = 0x09,
-    #[doc = "-25 mV hysteresis."]
-    Hyst10 = 0x0a,
-    #[doc = "-30 mV hysteresis."]
-    Hyst11 = 0x0b,
-    #[doc = "-35 mV hysteresis."]
-    Hyst12 = 0x0c,
-    #[doc = "-39 mV hysteresis."]
-    Hyst13 = 0x0d,
-    #[doc = "-42 mV hysteresis."]
-    Hyst14 = 0x0e,
-    #[doc = "-45 mV hysteresis."]
-    Hyst15 = 0x0f,
-}
-impl Hysteresis1Hyst {
-    #[inline(always)]
-    pub const fn from_bits(val: u8) -> Hysteresis1Hyst {
-        unsafe { core::mem::transmute(val & 0x0f) }
-    }
-    #[inline(always)]
-    pub const fn to_bits(self) -> u8 {
-        unsafe { core::mem::transmute(self) }
-    }
-}
-impl From<u8> for Hysteresis1Hyst {
-    #[inline(always)]
-    fn from(val: u8) -> Hysteresis1Hyst {
-        Hysteresis1Hyst::from_bits(val)
-    }
-}
-impl From<Hysteresis1Hyst> for u8 {
-    #[inline(always)]
-    fn from(val: Hysteresis1Hyst) -> u8 {
-        Hysteresis1Hyst::to_bits(val)
+    fn from(val: HysteresisHyst) -> u8 {
+        HysteresisHyst::to_bits(val)
     }
 }
 #[repr(u8)]

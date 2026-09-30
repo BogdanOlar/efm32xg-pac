@@ -17,7 +17,9 @@ transforms:
   # the block.
   # ===========================================================================
 
+  # ===========================================================================
   # ACMP0 + ACMP1 -> acmp::Acmp
+  # ===========================================================================
   - !MergeBlocks
       from: "(acmp0::Acmp0|acmp1::Acmp1)"
       to: "acmp::Acmp"
@@ -29,7 +31,23 @@ transforms:
   - !Delete
       from: "acmp1.*"
 
+  # Hysteresis0 + Hysteresis1 -> Hysteresis  
+  - !MergeFieldsets
+      from: "acmp::regs::Hysteresis[0-1]"
+      to: "acmp::regs::Hysteresis"
+      main: "acmp::regs::Hysteresis"
+      check: NoCheck
+  
+  # Hysteresis0Hyst + Hysteresis1Hyst -> HysteresisHyst
+  - !MergeEnums
+      from: "acmp::vals::Hysteresis[0-1]Hyst"
+      to: "acmp::vals::HysteresisHyst"
+      check: NoCheck
+      skip_unmergeable: true
+
+  # ===========================================================================
   # USART0 + USART1 -> usart::Usart
+  # ===========================================================================
   - !MergeBlocks
       from: "(usart0::Usart0|usart1::Usart1)"
       to: "usart::Usart"
@@ -41,7 +59,9 @@ transforms:
   - !Delete
       from: "usart1.*"
 
+  # ===========================================================================
   # TIMER0 + TIMER1 -> timer::Timer
+  # ===========================================================================
   - !MergeBlocks
       from: "(timer0::Timer0|timer1::Timer1)"
       to: "timer::Timer"

@@ -61,12 +61,12 @@ impl Acmp {
     }
     #[doc = "Hysteresis 0 Register."]
     #[inline(always)]
-    pub const fn hysteresis0(self) -> crate::common::Reg<regs::Hysteresis0, crate::common::RW> {
+    pub const fn hysteresis0(self) -> crate::common::Reg<regs::Hysteresis, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x28usize) as _) }
     }
     #[doc = "Hysteresis 1 Register."]
     #[inline(always)]
-    pub const fn hysteresis1(self) -> crate::common::Reg<regs::Hysteresis1, crate::common::RW> {
+    pub const fn hysteresis1(self) -> crate::common::Reg<regs::Hysteresis, crate::common::RW> {
         unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x2cusize) as _) }
     }
     #[doc = "I/O Routing Pine Enable Register."]

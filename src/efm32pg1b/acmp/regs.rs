@@ -502,18 +502,18 @@ impl defmt::Format for Ctrl {
 #[doc = "Hysteresis 0 Register."]
 #[repr(transparent)]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Hysteresis0(pub u32);
-impl Hysteresis0 {
+pub struct Hysteresis(pub u32);
+impl Hysteresis {
     #[doc = "Hysteresis Select When ACMPOUT=0."]
     #[must_use]
     #[inline(always)]
-    pub const fn hyst(&self) -> super::vals::Hysteresis0Hyst {
+    pub const fn hyst(&self) -> super::vals::HysteresisHyst {
         let val = (self.0 >> 0usize) & 0x0f;
-        super::vals::Hysteresis0Hyst::from_bits(val as u8)
+        super::vals::HysteresisHyst::from_bits(val as u8)
     }
     #[doc = "Hysteresis Select When ACMPOUT=0."]
     #[inline(always)]
-    pub const fn set_hyst(&mut self, val: super::vals::Hysteresis0Hyst) {
+    pub const fn set_hyst(&mut self, val: super::vals::HysteresisHyst) {
         self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
     }
     #[doc = "Divider for VA Voltage When ACMPOUT=0."]
@@ -541,15 +541,15 @@ impl Hysteresis0 {
         self.0 = (self.0 & !(0x3f << 24usize)) | (((val as u32) & 0x3f) << 24usize);
     }
 }
-impl Default for Hysteresis0 {
+impl Default for Hysteresis {
     #[inline(always)]
-    fn default() -> Hysteresis0 {
-        Hysteresis0(0)
+    fn default() -> Hysteresis {
+        Hysteresis(0)
     }
 }
-impl core::fmt::Debug for Hysteresis0 {
+impl core::fmt::Debug for Hysteresis {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Hysteresis0")
+        f.debug_struct("Hysteresis")
             .field("hyst", &self.hyst())
             .field("divva", &self.divva())
             .field("divvb", &self.divvb())
@@ -557,80 +557,11 @@ impl core::fmt::Debug for Hysteresis0 {
     }
 }
 #[cfg(feature = "defmt")]
-impl defmt::Format for Hysteresis0 {
+impl defmt::Format for Hysteresis {
     fn format(&self, f: defmt::Formatter) {
         defmt::write!(
             f,
-            "Hysteresis0 {{ hyst: {:?}, divva: {=u8:?}, divvb: {=u8:?} }}",
-            self.hyst(),
-            self.divva(),
-            self.divvb()
-        )
-    }
-}
-#[doc = "Hysteresis 1 Register."]
-#[repr(transparent)]
-#[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Hysteresis1(pub u32);
-impl Hysteresis1 {
-    #[doc = "Hysteresis Select When ACMPOUT=1."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn hyst(&self) -> super::vals::Hysteresis1Hyst {
-        let val = (self.0 >> 0usize) & 0x0f;
-        super::vals::Hysteresis1Hyst::from_bits(val as u8)
-    }
-    #[doc = "Hysteresis Select When ACMPOUT=1."]
-    #[inline(always)]
-    pub const fn set_hyst(&mut self, val: super::vals::Hysteresis1Hyst) {
-        self.0 = (self.0 & !(0x0f << 0usize)) | (((val.to_bits() as u32) & 0x0f) << 0usize);
-    }
-    #[doc = "Divider for VA Voltage When ACMPOUT=1."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn divva(&self) -> u8 {
-        let val = (self.0 >> 16usize) & 0x3f;
-        val as u8
-    }
-    #[doc = "Divider for VA Voltage When ACMPOUT=1."]
-    #[inline(always)]
-    pub const fn set_divva(&mut self, val: u8) {
-        self.0 = (self.0 & !(0x3f << 16usize)) | (((val as u32) & 0x3f) << 16usize);
-    }
-    #[doc = "Divider for VB Voltage When ACMPOUT=1."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn divvb(&self) -> u8 {
-        let val = (self.0 >> 24usize) & 0x3f;
-        val as u8
-    }
-    #[doc = "Divider for VB Voltage When ACMPOUT=1."]
-    #[inline(always)]
-    pub const fn set_divvb(&mut self, val: u8) {
-        self.0 = (self.0 & !(0x3f << 24usize)) | (((val as u32) & 0x3f) << 24usize);
-    }
-}
-impl Default for Hysteresis1 {
-    #[inline(always)]
-    fn default() -> Hysteresis1 {
-        Hysteresis1(0)
-    }
-}
-impl core::fmt::Debug for Hysteresis1 {
-    fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
-        f.debug_struct("Hysteresis1")
-            .field("hyst", &self.hyst())
-            .field("divva", &self.divva())
-            .field("divvb", &self.divvb())
-            .finish()
-    }
-}
-#[cfg(feature = "defmt")]
-impl defmt::Format for Hysteresis1 {
-    fn format(&self, f: defmt::Formatter) {
-        defmt::write!(
-            f,
-            "Hysteresis1 {{ hyst: {:?}, divva: {=u8:?}, divvb: {=u8:?} }}",
+            "Hysteresis {{ hyst: {:?}, divva: {=u8:?}, divvb: {=u8:?} }}",
             self.hyst(),
             self.divva(),
             self.divvb()
