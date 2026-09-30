@@ -5,163 +5,6 @@ transforms:
       useless: true
 
   # ===========================================================================
-  # Peripheral block merging: merge identical peripherals into shared blocks.
-  # Both instances keep their own const (different baseAddress) but share one
-  # block definition, one set of regs and vals.
-  #
-  # MergeBlocks creates the merged block at the `to:` path (e.g. acmp::Acmp) and
-  # repoints every instance const at it, but leaves the regs/vals modules under
-  # the `main` peripheral's namespace (acmp0::regs).  The !Rename below moves
-  # them to the shared namespace (acmp::regs) so the !Delete can drop the
-  # instance modules.  No separate block rename is needed: `to:` already names
-  # the block.
-  # ===========================================================================
-
-  # ===========================================================================
-  # ACMP0 + ACMP1 -> acmp::Acmp
-  # ===========================================================================
-  - !MergeBlocks
-      from: "(acmp0::Acmp0|acmp1::Acmp1)"
-      to: "acmp::Acmp"
-      main: "acmp0::Acmp0"
-      check: NoCheck
-  - !Rename
-      from: "acmp0::(.+)"
-      to: "acmp::$1"
-  - !Delete
-      from: "acmp1.*"
-
-  # Hysteresis0 + Hysteresis1 -> Hysteresis  
-  - !MergeFieldsets
-      from: "acmp::regs::Hysteresis[0-1]"
-      to: "acmp::regs::Hysteresis"
-      main: "acmp::regs::Hysteresis"
-      check: NoCheck
-  
-  # Hysteresis0Hyst + Hysteresis1Hyst -> HysteresisHyst
-  - !MergeEnums
-      from: "acmp::vals::Hysteresis[0-1]Hyst"
-      to: "acmp::vals::HysteresisHyst"
-      check: NoCheck
-      skip_unmergeable: true
-
-  # ===========================================================================
-  # USART0 + USART1 -> usart::Usart
-  # ===========================================================================
-  - !MergeBlocks
-      from: "(usart0::Usart0|usart1::Usart1)"
-      to: "usart::Usart"
-      main: "usart0::Usart0"
-      check: NoCheck
-  - !Rename
-      from: "usart0::(.+)"
-      to: "usart::$1"
-  - !Delete
-      from: "usart1.*"
-
-  # ===========================================================================
-  # TIMER0 + TIMER1 -> timer::Timer
-  # ===========================================================================
-  - !MergeBlocks
-      from: "(timer0::Timer0|timer1::Timer1)"
-      to: "timer::Timer"
-      main: "timer0::Timer0"
-      check: NoCheck
-  - !Rename
-      from: "timer0::(.+)"
-      to: "timer::$1"
-  - !Delete
-      from: "timer1.*"
-
-  # ===========================================================================
-  # IFS/IFC fieldset merging: IFC is identical to IFS (same fields, same bit
-  # positions, write-only).  Merge IFC into IFS so both registers share one
-  # fieldset type.
-  # ===========================================================================
-  - !MergeFieldsets
-      from: "(.+)::regs::If[sc]"
-      to: "$1::regs::Ifs"
-      main: "(.+)::regs::Ifs"
-      check: NoCheck
-
-  # ===========================================================================
-  # TIMER CC: the CC1/CC2/CC3 fieldsets are identical copies of CC0 (same
-  # fields and bit positions; only the per-instance enum names differ).  Merge
-  # them into CC so all CC channels share one set of fieldset types.  This
-  # mirrors the RTCC CC merge below.
-  # ===========================================================================
-  - !MergeFieldsets
-      from: "timer::regs::Cc[0-3](.+)"
-      to: "timer::regs::Cc$1"
-      main: "timer::regs::Cc.*"
-      check: NoCheck
-
-  # ===========================================================================
-  # TIMER: collapse the 4 flat CC0_*..CC3_* channel registers into a cluster.
-  # ===========================================================================
-  - !MakeBlock
-      blocks: "timer::Timer"
-      from: "cc(\\d+)_(.+)"
-      to_outer: "cc$1"
-      to_inner: "$2"
-      to_block: "timer::Channel"
-
-  # ===========================================================================
-  # TIMER: merge timer channel enums
-  # ===========================================================================
-  - !MergeEnums
-      from: "timer::vals::Cc[0-3](.+)"
-      to: "timer::vals::Cc$1"
-      check: NoCheck
-      skip_unmergeable: true
-  # Fix `CcLoc` name
-  - !Rename
-      from: "timer::vals::Ccloc"
-      to: "timer::vals::CcLoc"
-
-  # ===========================================================================
-  # PRS: merge CH0Ctrl,CH1Ctrl...CH11Ctrl fieldsets
-  # ===========================================================================
-  - !MergeFieldsets
-      from: "prs::regs::Ch(\\d+)Ctrl"
-      to: "prs::regs::ChCtrl"
-      main: "prs::regs::ChCtrl"
-      check: NoCheck
-
-  # ===========================================================================
-  # PRS: merge Dmareq0, Dmareq1 fieldsets
-  # ===========================================================================
-  - !MergeFieldsets
-      from: "prs::regs::Dmareq[0-1]"
-      to: "prs::regs::DmaReq"
-      main: "prs::regs::DmaReq"
-      check: NoCheck
-
-  # ===========================================================================
-  # PRS: merge CHxCtrl enums (ChCtrlEdsel, ChCtrlSourcesel)
-  # ===========================================================================  
-  - !MergeEnums
-      from: "prs::vals::Ch(\\d+)Ctrl(.+)"
-      to: "prs::vals::ChCtrl$2"
-      check: NoCheck
-      skip_unmergeable: true
-
-  # ===========================================================================
-  # LDMA: collapse the 8 flat CH0_*..CH7_* channel registers into a cluster.
-  # ===========================================================================
-  - !MakeBlock
-      blocks: "ldma::Ldma"
-      from: "ch(\\d+)_(.+)"
-      to_outer: "ch$1"
-      to_inner: "$2"
-      to_block: "ldma::Channel"
-  # 'loop' is a Rust keyword — rename to 'loop_'
-  - !RenameRegisters
-      block: "ldma::Channel"
-      from: "loop"
-      to: "loop_"
-
-  # ===========================================================================
   # Strip the trailing "0" from single-instance peripherals.  PG1B has only
   # one ADC, I2C, IDAC, LETIMER, LEUART, PCNT, WDOG — the "0" suffix adds
   # noise.  Rename both the peripheral const (RenamePeripherals) and the
@@ -178,10 +21,50 @@ transforms:
       to: "$1::$2"
 
   # ===========================================================================
-  # GPIO: collapse the 6 flat PA_*..PF_* port register groups into a shared
+  # LOCKKEY enum merging: the Unlocked/Locked enum appears in LOCK/MASSLOCK/
+  # DTLOCK registers across MSC, EMU, RMU, CMU, TIMER, RTCC, GPIO.  Merge
+  # into one canonical definition.
+  # ===========================================================================
+  - !MergeEnums
+      from: ".+::vals::.*Lockkey"
+      to: "msc::vals::Lockkey"
+      check: NoCheck
+      skip_unmergeable: true
+
+  # ===========================================================================
+  # ACMP
+  # ===========================================================================
+
+  # ACMP0 + ACMP1 -> acmp::Acmp
+  - !MergeBlocks
+      from: "(acmp0::Acmp0|acmp1::Acmp1)"
+      to: "acmp::Acmp"
+      main: "acmp0::Acmp0"
+      check: NoCheck
+  - !Rename
+      from: "acmp0::(.+)"
+      to: "acmp::$1"
+  - !Delete
+      from: "acmp1.*"
+  # Hysteresis0 + Hysteresis1 -> Hysteresis  
+  - !MergeFieldsets
+      from: "acmp::regs::Hysteresis[0-1]"
+      to: "acmp::regs::Hysteresis"
+      check: NoCheck
+  # Hysteresis0Hyst + Hysteresis1Hyst -> HysteresisHyst
+  - !MergeEnums
+      from: "acmp::vals::Hysteresis[0-1]Hyst"
+      to: "acmp::vals::HysteresisHyst"
+      check: NoCheck
+      skip_unmergeable: true
+
+  # ===========================================================================
+  # GPIO
+  # ===========================================================================
+
+  # collapse the 6 flat PA_*..PF_* port register groups into a shared
   # Port block.  MakeBlock extracts them; MergeFieldsets collapses the
   # per-port fieldset copies (PaCtrl, PbCtrl, ... -> Ctrl).
-  # ===========================================================================
   - !MakeBlock
       blocks: "gpio::Gpio"
       from: "p([a-f])_(.+)"
@@ -220,11 +103,66 @@ transforms:
       to: "din_dis_alt"
 
   # ===========================================================================
-  # RTCC: merge CC1/CC2 fieldsets into CC0 (identical layout).  RET0_REG..
+  # IFS
+  # ===========================================================================
+
+  # IFS/IFC fieldset merging: IFC is identical to IFS (same fields, same bit
+  # positions, write-only).  Merge IFC into IFS so both registers share one
+  # fieldset type.
+  - !MergeFieldsets
+      from: "(.+)::regs::If[sc]"
+      to: "$1::regs::Ifs"
+      main: "(.+)::regs::Ifs"
+      check: NoCheck
+
+  # ===========================================================================
+  # LDMA
+  # ===========================================================================
+
+  # collapse the 8 flat CH0_*..CH7_* channel registers into a cluster.
+  - !MakeBlock
+      blocks: "ldma::Ldma"
+      from: "ch(\\d+)_(.+)"
+      to_outer: "ch$1"
+      to_inner: "$2"
+      to_block: "ldma::Channel"
+  # 'loop' is a Rust keyword — rename to 'loop_'
+  - !RenameRegisters
+      block: "ldma::Channel"
+      from: "loop"
+      to: "loop_"
+
+  # ===========================================================================
+  # PRS
+  # ===========================================================================
+
+  # merge CH0Ctrl,CH1Ctrl...CH11Ctrl fieldsets
+  - !MergeFieldsets
+      from: "prs::regs::Ch(\\d+)Ctrl"
+      to: "prs::regs::ChCtrl"
+      main: "prs::regs::ChCtrl"
+      check: NoCheck
+  # merge Dmareq0, Dmareq1 fieldsets
+  - !MergeFieldsets
+      from: "prs::regs::Dmareq[0-1]"
+      to: "prs::regs::DmaReq"
+      main: "prs::regs::DmaReq"
+      check: NoCheck
+  # merge CHxCtrl enums (ChCtrlEdsel, ChCtrlSourcesel)
+  - !MergeEnums
+      from: "prs::vals::Ch(\\d+)Ctrl(.+)"
+      to: "prs::vals::ChCtrl$2"
+      check: NoCheck
+      skip_unmergeable: true
+
+  # ===========================================================================
+  # RTCC
+  # ===========================================================================
+
+  # merge CC1/CC2 fieldsets into CC0 (identical layout).  RET0_REG..
   # RET31_REG are plain u32 registers (no fieldset) at distinct offsets, so
   # they cannot be merged into one fieldset and are left as separate
   # registers.
-  # ===========================================================================
   - !MergeFieldsets
       from: "rtcc::regs::Cc[012](.+)"
       to: "rtcc::regs::Cc0$1"
@@ -232,12 +170,58 @@ transforms:
       check: NoCheck
 
   # ===========================================================================
-  # LOCKKEY enum merging: the Unlocked/Locked enum appears in LOCK/MASSLOCK/
-  # DTLOCK registers across MSC, EMU, RMU, CMU, TIMER, RTCC, GPIO.  Merge
-  # into one canonical definition.
+  # TIMER
   # ===========================================================================
+
+  # TIMER0 + TIMER1 -> timer::Timer
+  - !MergeBlocks
+      from: "(timer0::Timer0|timer1::Timer1)"
+      to: "timer::Timer"
+      main: "timer0::Timer0"
+      check: NoCheck
+  - !Rename
+      from: "timer0::(.+)"
+      to: "timer::$1"
+  - !Delete
+      from: "timer1.*"
+  # TIMER CC: the CC1/CC2/CC3 fieldsets are identical copies of CC0 (same
+  # fields and bit positions; only the per-instance enum names differ).  Merge
+  # them into CC so all CC channels share one set of fieldset types.  This
+  # mirrors the RTCC CC merge below.
+  - !MergeFieldsets
+      from: "timer::regs::Cc[0-3](.+)"
+      to: "timer::regs::Cc$1"
+      main: "timer::regs::Cc.*"
+      check: NoCheck
+  # collapse the 4 flat CC0_*..CC3_* channel registers into a cluster.
+  - !MakeBlock
+      blocks: "timer::Timer"
+      from: "cc(\\d+)_(.+)"
+      to_outer: "cc$1"
+      to_inner: "$2"
+      to_block: "timer::Channel"
+  # merge timer channel enums
   - !MergeEnums
-      from: ".+::vals::.*Lockkey"
-      to: "msc::vals::Lockkey"
+      from: "timer::vals::Cc[0-3](.+)"
+      to: "timer::vals::Cc$1"
       check: NoCheck
       skip_unmergeable: true
+  # Fix `CcLoc` name
+  - !Rename
+      from: "timer::vals::Ccloc"
+      to: "timer::vals::CcLoc"
+
+  # ===========================================================================
+  # USART0 + USART1 -> usart::Usart
+  # ===========================================================================
+  
+  - !MergeBlocks
+      from: "(usart0::Usart0|usart1::Usart1)"
+      to: "usart::Usart"
+      main: "usart::Usart"
+      check: NoCheck
+  - !Rename
+      from: "usart0::(.+)"
+      to: "usart::$1"
+  - !Delete
+      from: "usart1.*"
