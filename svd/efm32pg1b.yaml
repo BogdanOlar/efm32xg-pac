@@ -35,14 +35,25 @@ transforms:
       skip_unmergeable: true
 
   # ===========================================================================
+  # IFS/IFC fieldset merging: IFC is identical to IFS (same fields, same bit
+  # positions, write-only).  Merge IFC into IFS so both registers share one
+  # fieldset type.
+  # ===========================================================================
+
+  - !MergeFieldsets
+      from: "(.+)::regs::If[sc]"
+      to: "$1::regs::Ifs"
+      main: "(.+)::regs::Ifs"
+      check: NoCheck
+
+  # ===========================================================================
   # ACMP
   # ===========================================================================
 
   # ACMP0 + ACMP1 -> acmp::Acmp
   - !MergeBlocks
-      from: "(acmp0::Acmp0|acmp1::Acmp1)"
-      to: "acmp::Acmp"
-      main: "acmp0::Acmp0"
+      from: acmp\d+::Acmp\d+
+      to: acmp::Acmp
       check: NoCheck
   - !Rename
       from: "acmp0::(.+)"
@@ -51,12 +62,12 @@ transforms:
       from: "acmp1.*"
   # Hysteresis0 + Hysteresis1 -> Hysteresis  
   - !MergeFieldsets
-      from: "acmp::regs::Hysteresis[0-1]"
+      from: "acmp::regs::Hysteresis(\\d+)"
       to: "acmp::regs::Hysteresis"
       check: NoCheck
   # Hysteresis0Hyst + Hysteresis1Hyst -> HysteresisHyst
   - !MergeEnums
-      from: "acmp::vals::Hysteresis[0-1]Hyst"
+      from: "acmp::vals::Hysteresis(\\d+)Hyst"
       to: "acmp::vals::HysteresisHyst"
       check: NoCheck
       skip_unmergeable: true
@@ -70,12 +81,12 @@ transforms:
   # per-port fieldset copies (PaCtrl, PbCtrl, ... -> Ctrl).
   - !MakeBlock
       blocks: "gpio::Gpio"
-      from: "p([a-f])_(.+)"
+      from: "p([a-z])_(.+)"
       to_outer: "port_$1"
       to_inner: "$2"
       to_block: "gpio::Port"
   - !MergeFieldsets
-      from: "gpio::regs::P[a-f](.+)"
+      from: "gpio::regs::P[a-z](.+)"
       to: "gpio::regs::$1"
       main: "gpio::regs::Pa$1"
       check: NoCheck
@@ -104,20 +115,7 @@ transforms:
       fieldset: "gpio::regs::Ctrl"
       from: "dindisalt"
       to: "din_dis_alt"
-
-  # ===========================================================================
-  # IFS
-  # ===========================================================================
-
-  # IFS/IFC fieldset merging: IFC is identical to IFS (same fields, same bit
-  # positions, write-only).  Merge IFC into IFS so both registers share one
-  # fieldset type.
-  - !MergeFieldsets
-      from: "(.+)::regs::If[sc]"
-      to: "$1::regs::Ifs"
-      main: "(.+)::regs::Ifs"
-      check: NoCheck
-
+  
   # ===========================================================================
   # LDMA
   # ===========================================================================
@@ -147,7 +145,7 @@ transforms:
       check: NoCheck
   # merge Dmareq0, Dmareq1 fieldsets
   - !MergeFieldsets
-      from: "prs::regs::Dmareq[0-1]"
+      from: "prs::regs::Dmareq(\\d+)"
       to: "prs::regs::DmaReq"
       main: "prs::regs::DmaReq"
       check: NoCheck
@@ -167,8 +165,8 @@ transforms:
   # they cannot be merged into one fieldset and are left as separate
   # registers.
   - !MergeFieldsets
-      from: "rtcc::regs::Cc[012](.+)"
-      to: "rtcc::regs::Cc0$1"
+      from: "rtcc::regs::Cc(\\d+)(.+)"
+      to: "rtcc::regs::Cc0$2"
       main: "rtcc::regs::Cc0.*"
       check: NoCheck
 
@@ -178,9 +176,8 @@ transforms:
 
   # TIMER0 + TIMER1 -> timer::Timer
   - !MergeBlocks
-      from: "(timer0::Timer0|timer1::Timer1)"
+      from: timer\d+::Timer\d+
       to: "timer::Timer"
-      main: "timer0::Timer0"
       check: NoCheck
   - !Rename
       from: "timer0::(.+)"
@@ -192,8 +189,8 @@ transforms:
   # them into CC so all CC channels share one set of fieldset types.  This
   # mirrors the RTCC CC merge below.
   - !MergeFieldsets
-      from: "timer::regs::Cc[0-3](.+)"
-      to: "timer::regs::Cc$1"
+      from: "timer::regs::Cc(\\d+)(.+)"
+      to: "timer::regs::Cc$2"
       main: "timer::regs::Cc.*"
       check: NoCheck
   # collapse the 4 flat CC0_*..CC3_* channel registers into a cluster.
@@ -240,8 +237,8 @@ transforms:
     to: cdti_pen
   # merge timer channel enums
   - !MergeEnums
-      from: "timer::vals::Cc[0-3](.+)"
-      to: "timer::vals::Cc$1"
+      from: "timer::vals::Cc(\\d+)(.+)"
+      to: "timer::vals::Cc$2"
       check: NoCheck
       skip_unmergeable: true
   # Fix `CcLoc` name
@@ -254,9 +251,8 @@ transforms:
   # ===========================================================================
   
   - !MergeBlocks
-      from: "(usart0::Usart0|usart1::Usart1)"
+      from: usart\d+::Usart\d+
       to: "usart::Usart"
-      main: "usart::Usart"
       check: NoCheck
   - !Rename
       from: "usart0::(.+)"
