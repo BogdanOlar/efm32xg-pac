@@ -1217,98 +1217,34 @@ impl Ien {
     #[doc = "CC0 Interrupt Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc0(&self) -> bool {
-        let val = (self.0 >> 4usize) & 0x01;
+    pub const fn cc(&self, n: usize) -> bool {
+        assert!(n < 4usize);
+        let offs = 4usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "CC0 Interrupt Enable."]
     #[inline(always)]
-    pub const fn set_cc0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
-    }
-    #[doc = "CC1 Interrupt Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc1(&self) -> bool {
-        let val = (self.0 >> 5usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC1 Interrupt Enable."]
-    #[inline(always)]
-    pub const fn set_cc1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
-    }
-    #[doc = "CC2 Interrupt Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc2(&self) -> bool {
-        let val = (self.0 >> 6usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC2 Interrupt Enable."]
-    #[inline(always)]
-    pub const fn set_cc2(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 6usize)) | (((val as u32) & 0x01) << 6usize);
-    }
-    #[doc = "CC3 Interrupt Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc3(&self) -> bool {
-        let val = (self.0 >> 7usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC3 Interrupt Enable."]
-    #[inline(always)]
-    pub const fn set_cc3(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u32) & 0x01) << 7usize);
+    pub const fn set_cc(&mut self, n: usize, val: bool) {
+        assert!(n < 4usize);
+        let offs = 4usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "ICBOF0 Interrupt Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn icbof0(&self) -> bool {
-        let val = (self.0 >> 8usize) & 0x01;
+    pub const fn icbof(&self, n: usize) -> bool {
+        assert!(n < 4usize);
+        let offs = 8usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "ICBOF0 Interrupt Enable."]
     #[inline(always)]
-    pub const fn set_icbof0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u32) & 0x01) << 8usize);
-    }
-    #[doc = "ICBOF1 Interrupt Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof1(&self) -> bool {
-        let val = (self.0 >> 9usize) & 0x01;
-        val != 0
-    }
-    #[doc = "ICBOF1 Interrupt Enable."]
-    #[inline(always)]
-    pub const fn set_icbof1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u32) & 0x01) << 9usize);
-    }
-    #[doc = "ICBOF2 Interrupt Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof2(&self) -> bool {
-        let val = (self.0 >> 10usize) & 0x01;
-        val != 0
-    }
-    #[doc = "ICBOF2 Interrupt Enable."]
-    #[inline(always)]
-    pub const fn set_icbof2(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 10usize)) | (((val as u32) & 0x01) << 10usize);
-    }
-    #[doc = "ICBOF3 Interrupt Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof3(&self) -> bool {
-        let val = (self.0 >> 11usize) & 0x01;
-        val != 0
-    }
-    #[doc = "ICBOF3 Interrupt Enable."]
-    #[inline(always)]
-    pub const fn set_icbof3(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 11usize)) | (((val as u32) & 0x01) << 11usize);
+    pub const fn set_icbof(&mut self, n: usize, val: bool) {
+        assert!(n < 4usize);
+        let offs = 8usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
 }
 impl Default for Ien {
@@ -1323,21 +1259,21 @@ impl core::fmt::Debug for Ien {
             .field("of", &self.of())
             .field("uf", &self.uf())
             .field("dirchg", &self.dirchg())
-            .field("cc0", &self.cc0())
-            .field("cc1", &self.cc1())
-            .field("cc2", &self.cc2())
-            .field("cc3", &self.cc3())
-            .field("icbof0", &self.icbof0())
-            .field("icbof1", &self.icbof1())
-            .field("icbof2", &self.icbof2())
-            .field("icbof3", &self.icbof3())
+            .field("cc[0]", &self.cc(0usize))
+            .field("cc[1]", &self.cc(1usize))
+            .field("cc[2]", &self.cc(2usize))
+            .field("cc[3]", &self.cc(3usize))
+            .field("icbof[0]", &self.icbof(0usize))
+            .field("icbof[1]", &self.icbof(1usize))
+            .field("icbof[2]", &self.icbof(2usize))
+            .field("icbof[3]", &self.icbof(3usize))
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
 impl defmt::Format for Ien {
     fn format(&self, f: defmt::Formatter) {
-        defmt :: write ! (f , "Ien {{ of: {=bool:?}, uf: {=bool:?}, dirchg: {=bool:?}, cc0: {=bool:?}, cc1: {=bool:?}, cc2: {=bool:?}, cc3: {=bool:?}, icbof0: {=bool:?}, icbof1: {=bool:?}, icbof2: {=bool:?}, icbof3: {=bool:?} }}" , self . of () , self . uf () , self . dirchg () , self . cc0 () , self . cc1 () , self . cc2 () , self . cc3 () , self . icbof0 () , self . icbof1 () , self . icbof2 () , self . icbof3 ())
+        defmt :: write ! (f , "Ien {{ of: {=bool:?}, uf: {=bool:?}, dirchg: {=bool:?}, cc[0]: {=bool:?}, cc[1]: {=bool:?}, cc[2]: {=bool:?}, cc[3]: {=bool:?}, icbof[0]: {=bool:?}, icbof[1]: {=bool:?}, icbof[2]: {=bool:?}, icbof[3]: {=bool:?} }}" , self . of () , self . uf () , self . dirchg () , self . cc (0usize) , self . cc (1usize) , self . cc (2usize) , self . cc (3usize) , self . icbof (0usize) , self . icbof (1usize) , self . icbof (2usize) , self . icbof (3usize))
     }
 }
 #[doc = "Interrupt Flag Register."]
@@ -1384,98 +1320,34 @@ impl If {
     #[doc = "CC Channel 0 Interrupt Flag."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc0(&self) -> bool {
-        let val = (self.0 >> 4usize) & 0x01;
+    pub const fn cc(&self, n: usize) -> bool {
+        assert!(n < 4usize);
+        let offs = 4usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "CC Channel 0 Interrupt Flag."]
     #[inline(always)]
-    pub const fn set_cc0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
-    }
-    #[doc = "CC Channel 1 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc1(&self) -> bool {
-        let val = (self.0 >> 5usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 1 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_cc1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
-    }
-    #[doc = "CC Channel 2 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc2(&self) -> bool {
-        let val = (self.0 >> 6usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 2 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_cc2(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 6usize)) | (((val as u32) & 0x01) << 6usize);
-    }
-    #[doc = "CC Channel 3 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc3(&self) -> bool {
-        let val = (self.0 >> 7usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 3 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_cc3(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u32) & 0x01) << 7usize);
+    pub const fn set_cc(&mut self, n: usize, val: bool) {
+        assert!(n < 4usize);
+        let offs = 4usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "CC Channel 0 Input Capture Buffer Overflow Interrupt Flag."]
     #[must_use]
     #[inline(always)]
-    pub const fn icbof0(&self) -> bool {
-        let val = (self.0 >> 8usize) & 0x01;
+    pub const fn icbof(&self, n: usize) -> bool {
+        assert!(n < 4usize);
+        let offs = 8usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "CC Channel 0 Input Capture Buffer Overflow Interrupt Flag."]
     #[inline(always)]
-    pub const fn set_icbof0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u32) & 0x01) << 8usize);
-    }
-    #[doc = "CC Channel 1 Input Capture Buffer Overflow Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof1(&self) -> bool {
-        let val = (self.0 >> 9usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 1 Input Capture Buffer Overflow Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_icbof1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u32) & 0x01) << 9usize);
-    }
-    #[doc = "CC Channel 2 Input Capture Buffer Overflow Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof2(&self) -> bool {
-        let val = (self.0 >> 10usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 2 Input Capture Buffer Overflow Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_icbof2(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 10usize)) | (((val as u32) & 0x01) << 10usize);
-    }
-    #[doc = "CC Channel 3 Input Capture Buffer Overflow Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof3(&self) -> bool {
-        let val = (self.0 >> 11usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 3 Input Capture Buffer Overflow Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_icbof3(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 11usize)) | (((val as u32) & 0x01) << 11usize);
+    pub const fn set_icbof(&mut self, n: usize, val: bool) {
+        assert!(n < 4usize);
+        let offs = 8usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
 }
 impl Default for If {
@@ -1490,21 +1362,21 @@ impl core::fmt::Debug for If {
             .field("of", &self.of())
             .field("uf", &self.uf())
             .field("dirchg", &self.dirchg())
-            .field("cc0", &self.cc0())
-            .field("cc1", &self.cc1())
-            .field("cc2", &self.cc2())
-            .field("cc3", &self.cc3())
-            .field("icbof0", &self.icbof0())
-            .field("icbof1", &self.icbof1())
-            .field("icbof2", &self.icbof2())
-            .field("icbof3", &self.icbof3())
+            .field("cc[0]", &self.cc(0usize))
+            .field("cc[1]", &self.cc(1usize))
+            .field("cc[2]", &self.cc(2usize))
+            .field("cc[3]", &self.cc(3usize))
+            .field("icbof[0]", &self.icbof(0usize))
+            .field("icbof[1]", &self.icbof(1usize))
+            .field("icbof[2]", &self.icbof(2usize))
+            .field("icbof[3]", &self.icbof(3usize))
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
 impl defmt::Format for If {
     fn format(&self, f: defmt::Formatter) {
-        defmt :: write ! (f , "If {{ of: {=bool:?}, uf: {=bool:?}, dirchg: {=bool:?}, cc0: {=bool:?}, cc1: {=bool:?}, cc2: {=bool:?}, cc3: {=bool:?}, icbof0: {=bool:?}, icbof1: {=bool:?}, icbof2: {=bool:?}, icbof3: {=bool:?} }}" , self . of () , self . uf () , self . dirchg () , self . cc0 () , self . cc1 () , self . cc2 () , self . cc3 () , self . icbof0 () , self . icbof1 () , self . icbof2 () , self . icbof3 ())
+        defmt :: write ! (f , "If {{ of: {=bool:?}, uf: {=bool:?}, dirchg: {=bool:?}, cc[0]: {=bool:?}, cc[1]: {=bool:?}, cc[2]: {=bool:?}, cc[3]: {=bool:?}, icbof[0]: {=bool:?}, icbof[1]: {=bool:?}, icbof[2]: {=bool:?}, icbof[3]: {=bool:?} }}" , self . of () , self . uf () , self . dirchg () , self . cc (0usize) , self . cc (1usize) , self . cc (2usize) , self . cc (3usize) , self . icbof (0usize) , self . icbof (1usize) , self . icbof (2usize) , self . icbof (3usize))
     }
 }
 #[doc = "Interrupt Flag Set Register."]
@@ -1551,98 +1423,34 @@ impl Ifs {
     #[doc = "Set CC0 Interrupt Flag."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc0(&self) -> bool {
-        let val = (self.0 >> 4usize) & 0x01;
+    pub const fn cc(&self, n: usize) -> bool {
+        assert!(n < 4usize);
+        let offs = 4usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Set CC0 Interrupt Flag."]
     #[inline(always)]
-    pub const fn set_cc0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
-    }
-    #[doc = "Set CC1 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc1(&self) -> bool {
-        let val = (self.0 >> 5usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Set CC1 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_cc1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
-    }
-    #[doc = "Set CC2 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc2(&self) -> bool {
-        let val = (self.0 >> 6usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Set CC2 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_cc2(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 6usize)) | (((val as u32) & 0x01) << 6usize);
-    }
-    #[doc = "Set CC3 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc3(&self) -> bool {
-        let val = (self.0 >> 7usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Set CC3 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_cc3(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u32) & 0x01) << 7usize);
+    pub const fn set_cc(&mut self, n: usize, val: bool) {
+        assert!(n < 4usize);
+        let offs = 4usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "Set ICBOF0 Interrupt Flag."]
     #[must_use]
     #[inline(always)]
-    pub const fn icbof0(&self) -> bool {
-        let val = (self.0 >> 8usize) & 0x01;
+    pub const fn icbof(&self, n: usize) -> bool {
+        assert!(n < 4usize);
+        let offs = 8usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Set ICBOF0 Interrupt Flag."]
     #[inline(always)]
-    pub const fn set_icbof0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u32) & 0x01) << 8usize);
-    }
-    #[doc = "Set ICBOF1 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof1(&self) -> bool {
-        let val = (self.0 >> 9usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Set ICBOF1 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_icbof1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u32) & 0x01) << 9usize);
-    }
-    #[doc = "Set ICBOF2 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof2(&self) -> bool {
-        let val = (self.0 >> 10usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Set ICBOF2 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_icbof2(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 10usize)) | (((val as u32) & 0x01) << 10usize);
-    }
-    #[doc = "Set ICBOF3 Interrupt Flag."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn icbof3(&self) -> bool {
-        let val = (self.0 >> 11usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Set ICBOF3 Interrupt Flag."]
-    #[inline(always)]
-    pub const fn set_icbof3(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 11usize)) | (((val as u32) & 0x01) << 11usize);
+    pub const fn set_icbof(&mut self, n: usize, val: bool) {
+        assert!(n < 4usize);
+        let offs = 8usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
 }
 impl Default for Ifs {
@@ -1657,21 +1465,21 @@ impl core::fmt::Debug for Ifs {
             .field("of", &self.of())
             .field("uf", &self.uf())
             .field("dirchg", &self.dirchg())
-            .field("cc0", &self.cc0())
-            .field("cc1", &self.cc1())
-            .field("cc2", &self.cc2())
-            .field("cc3", &self.cc3())
-            .field("icbof0", &self.icbof0())
-            .field("icbof1", &self.icbof1())
-            .field("icbof2", &self.icbof2())
-            .field("icbof3", &self.icbof3())
+            .field("cc[0]", &self.cc(0usize))
+            .field("cc[1]", &self.cc(1usize))
+            .field("cc[2]", &self.cc(2usize))
+            .field("cc[3]", &self.cc(3usize))
+            .field("icbof[0]", &self.icbof(0usize))
+            .field("icbof[1]", &self.icbof(1usize))
+            .field("icbof[2]", &self.icbof(2usize))
+            .field("icbof[3]", &self.icbof(3usize))
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
 impl defmt::Format for Ifs {
     fn format(&self, f: defmt::Formatter) {
-        defmt :: write ! (f , "Ifs {{ of: {=bool:?}, uf: {=bool:?}, dirchg: {=bool:?}, cc0: {=bool:?}, cc1: {=bool:?}, cc2: {=bool:?}, cc3: {=bool:?}, icbof0: {=bool:?}, icbof1: {=bool:?}, icbof2: {=bool:?}, icbof3: {=bool:?} }}" , self . of () , self . uf () , self . dirchg () , self . cc0 () , self . cc1 () , self . cc2 () , self . cc3 () , self . icbof0 () , self . icbof1 () , self . icbof2 () , self . icbof3 ())
+        defmt :: write ! (f , "Ifs {{ of: {=bool:?}, uf: {=bool:?}, dirchg: {=bool:?}, cc[0]: {=bool:?}, cc[1]: {=bool:?}, cc[2]: {=bool:?}, cc[3]: {=bool:?}, icbof[0]: {=bool:?}, icbof[1]: {=bool:?}, icbof[2]: {=bool:?}, icbof[3]: {=bool:?} }}" , self . of () , self . uf () , self . dirchg () , self . cc (0usize) , self . cc (1usize) , self . cc (2usize) , self . cc (3usize) , self . icbof (0usize) , self . icbof (1usize) , self . icbof (2usize) , self . icbof (3usize))
     }
 }
 #[doc = "TIMER Configuration Lock Register."]
@@ -1719,50 +1527,18 @@ impl Routeloc0 {
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc0loc(&self) -> super::vals::CcLoc {
-        let val = (self.0 >> 0usize) & 0x3f;
+    pub const fn cc_loc(&self, n: usize) -> super::vals::CcLoc {
+        assert!(n < 4usize);
+        let offs = 0usize + n * 8usize;
+        let val = (self.0 >> offs) & 0x3f;
         super::vals::CcLoc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cc0loc(&mut self, val: super::vals::CcLoc) {
-        self.0 = (self.0 & !(0x3f << 0usize)) | (((val.to_bits() as u32) & 0x3f) << 0usize);
-    }
-    #[doc = "I/O Location."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc1loc(&self) -> super::vals::CcLoc {
-        let val = (self.0 >> 8usize) & 0x3f;
-        super::vals::CcLoc::from_bits(val as u8)
-    }
-    #[doc = "I/O Location."]
-    #[inline(always)]
-    pub const fn set_cc1loc(&mut self, val: super::vals::CcLoc) {
-        self.0 = (self.0 & !(0x3f << 8usize)) | (((val.to_bits() as u32) & 0x3f) << 8usize);
-    }
-    #[doc = "I/O Location."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc2loc(&self) -> super::vals::CcLoc {
-        let val = (self.0 >> 16usize) & 0x3f;
-        super::vals::CcLoc::from_bits(val as u8)
-    }
-    #[doc = "I/O Location."]
-    #[inline(always)]
-    pub const fn set_cc2loc(&mut self, val: super::vals::CcLoc) {
-        self.0 = (self.0 & !(0x3f << 16usize)) | (((val.to_bits() as u32) & 0x3f) << 16usize);
-    }
-    #[doc = "I/O Location."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc3loc(&self) -> super::vals::CcLoc {
-        let val = (self.0 >> 24usize) & 0x3f;
-        super::vals::CcLoc::from_bits(val as u8)
-    }
-    #[doc = "I/O Location."]
-    #[inline(always)]
-    pub const fn set_cc3loc(&mut self, val: super::vals::CcLoc) {
-        self.0 = (self.0 & !(0x3f << 24usize)) | (((val.to_bits() as u32) & 0x3f) << 24usize);
+    pub const fn set_cc_loc(&mut self, n: usize, val: super::vals::CcLoc) {
+        assert!(n < 4usize);
+        let offs = 0usize + n * 8usize;
+        self.0 = (self.0 & !(0x3f << offs)) | (((val.to_bits() as u32) & 0x3f) << offs);
     }
 }
 impl Default for Routeloc0 {
@@ -1774,10 +1550,10 @@ impl Default for Routeloc0 {
 impl core::fmt::Debug for Routeloc0 {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
         f.debug_struct("Routeloc0")
-            .field("cc0loc", &self.cc0loc())
-            .field("cc1loc", &self.cc1loc())
-            .field("cc2loc", &self.cc2loc())
-            .field("cc3loc", &self.cc3loc())
+            .field("cc_loc[0]", &self.cc_loc(0usize))
+            .field("cc_loc[1]", &self.cc_loc(1usize))
+            .field("cc_loc[2]", &self.cc_loc(2usize))
+            .field("cc_loc[3]", &self.cc_loc(3usize))
             .finish()
     }
 }
@@ -1786,11 +1562,11 @@ impl defmt::Format for Routeloc0 {
     fn format(&self, f: defmt::Formatter) {
         defmt::write!(
             f,
-            "Routeloc0 {{ cc0loc: {:?}, cc1loc: {:?}, cc2loc: {:?}, cc3loc: {:?} }}",
-            self.cc0loc(),
-            self.cc1loc(),
-            self.cc2loc(),
-            self.cc3loc()
+            "Routeloc0 {{ cc_loc[0]: {:?}, cc_loc[1]: {:?}, cc_loc[2]: {:?}, cc_loc[3]: {:?} }}",
+            self.cc_loc(0usize),
+            self.cc_loc(1usize),
+            self.cc_loc(2usize),
+            self.cc_loc(3usize)
         )
     }
 }
@@ -1802,38 +1578,18 @@ impl Routeloc2 {
     #[doc = "I/O Location."]
     #[must_use]
     #[inline(always)]
-    pub const fn cdti0loc(&self) -> super::vals::Cdti0loc {
-        let val = (self.0 >> 0usize) & 0x3f;
+    pub const fn cdti_loc(&self, n: usize) -> super::vals::Cdti0loc {
+        assert!(n < 3usize);
+        let offs = 0usize + n * 8usize;
+        let val = (self.0 >> offs) & 0x3f;
         super::vals::Cdti0loc::from_bits(val as u8)
     }
     #[doc = "I/O Location."]
     #[inline(always)]
-    pub const fn set_cdti0loc(&mut self, val: super::vals::Cdti0loc) {
-        self.0 = (self.0 & !(0x3f << 0usize)) | (((val.to_bits() as u32) & 0x3f) << 0usize);
-    }
-    #[doc = "I/O Location."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cdti1loc(&self) -> super::vals::Cdti1loc {
-        let val = (self.0 >> 8usize) & 0x3f;
-        super::vals::Cdti1loc::from_bits(val as u8)
-    }
-    #[doc = "I/O Location."]
-    #[inline(always)]
-    pub const fn set_cdti1loc(&mut self, val: super::vals::Cdti1loc) {
-        self.0 = (self.0 & !(0x3f << 8usize)) | (((val.to_bits() as u32) & 0x3f) << 8usize);
-    }
-    #[doc = "I/O Location."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cdti2loc(&self) -> super::vals::Cdti2loc {
-        let val = (self.0 >> 16usize) & 0x3f;
-        super::vals::Cdti2loc::from_bits(val as u8)
-    }
-    #[doc = "I/O Location."]
-    #[inline(always)]
-    pub const fn set_cdti2loc(&mut self, val: super::vals::Cdti2loc) {
-        self.0 = (self.0 & !(0x3f << 16usize)) | (((val.to_bits() as u32) & 0x3f) << 16usize);
+    pub const fn set_cdti_loc(&mut self, n: usize, val: super::vals::Cdti0loc) {
+        assert!(n < 3usize);
+        let offs = 0usize + n * 8usize;
+        self.0 = (self.0 & !(0x3f << offs)) | (((val.to_bits() as u32) & 0x3f) << offs);
     }
 }
 impl Default for Routeloc2 {
@@ -1845,9 +1601,9 @@ impl Default for Routeloc2 {
 impl core::fmt::Debug for Routeloc2 {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
         f.debug_struct("Routeloc2")
-            .field("cdti0loc", &self.cdti0loc())
-            .field("cdti1loc", &self.cdti1loc())
-            .field("cdti2loc", &self.cdti2loc())
+            .field("cdti_loc[0]", &self.cdti_loc(0usize))
+            .field("cdti_loc[1]", &self.cdti_loc(1usize))
+            .field("cdti_loc[2]", &self.cdti_loc(2usize))
             .finish()
     }
 }
@@ -1856,10 +1612,10 @@ impl defmt::Format for Routeloc2 {
     fn format(&self, f: defmt::Formatter) {
         defmt::write!(
             f,
-            "Routeloc2 {{ cdti0loc: {:?}, cdti1loc: {:?}, cdti2loc: {:?} }}",
-            self.cdti0loc(),
-            self.cdti1loc(),
-            self.cdti2loc()
+            "Routeloc2 {{ cdti_loc[0]: {:?}, cdti_loc[1]: {:?}, cdti_loc[2]: {:?} }}",
+            self.cdti_loc(0usize),
+            self.cdti_loc(1usize),
+            self.cdti_loc(2usize)
         )
     }
 }
@@ -1871,86 +1627,34 @@ impl Routepen {
     #[doc = "CC Channel 0 Pin Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn cc0pen(&self) -> bool {
-        let val = (self.0 >> 0usize) & 0x01;
+    pub const fn cc_pen(&self, n: usize) -> bool {
+        assert!(n < 4usize);
+        let offs = 0usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "CC Channel 0 Pin Enable."]
     #[inline(always)]
-    pub const fn set_cc0pen(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u32) & 0x01) << 0usize);
-    }
-    #[doc = "CC Channel 1 Pin Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc1pen(&self) -> bool {
-        let val = (self.0 >> 1usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 1 Pin Enable."]
-    #[inline(always)]
-    pub const fn set_cc1pen(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 1usize)) | (((val as u32) & 0x01) << 1usize);
-    }
-    #[doc = "CC Channel 2 Pin Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc2pen(&self) -> bool {
-        let val = (self.0 >> 2usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 2 Pin Enable."]
-    #[inline(always)]
-    pub const fn set_cc2pen(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 2usize)) | (((val as u32) & 0x01) << 2usize);
-    }
-    #[doc = "CC Channel 3 Pin Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cc3pen(&self) -> bool {
-        let val = (self.0 >> 3usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 3 Pin Enable."]
-    #[inline(always)]
-    pub const fn set_cc3pen(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
+    pub const fn set_cc_pen(&mut self, n: usize, val: bool) {
+        assert!(n < 4usize);
+        let offs = 0usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "CC Channel 0 Complementary Dead-Time Insertion Pin Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn cdti0pen(&self) -> bool {
-        let val = (self.0 >> 8usize) & 0x01;
+    pub const fn cdti_pen(&self, n: usize) -> bool {
+        assert!(n < 3usize);
+        let offs = 8usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "CC Channel 0 Complementary Dead-Time Insertion Pin Enable."]
     #[inline(always)]
-    pub const fn set_cdti0pen(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u32) & 0x01) << 8usize);
-    }
-    #[doc = "CC Channel 1 Complementary Dead-Time Insertion Pin Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cdti1pen(&self) -> bool {
-        let val = (self.0 >> 9usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 1 Complementary Dead-Time Insertion Pin Enable."]
-    #[inline(always)]
-    pub const fn set_cdti1pen(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u32) & 0x01) << 9usize);
-    }
-    #[doc = "CC Channel 2 Complementary Dead-Time Insertion Pin Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn cdti2pen(&self) -> bool {
-        let val = (self.0 >> 10usize) & 0x01;
-        val != 0
-    }
-    #[doc = "CC Channel 2 Complementary Dead-Time Insertion Pin Enable."]
-    #[inline(always)]
-    pub const fn set_cdti2pen(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 10usize)) | (((val as u32) & 0x01) << 10usize);
+    pub const fn set_cdti_pen(&mut self, n: usize, val: bool) {
+        assert!(n < 3usize);
+        let offs = 8usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
 }
 impl Default for Routepen {
@@ -1962,20 +1666,20 @@ impl Default for Routepen {
 impl core::fmt::Debug for Routepen {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
         f.debug_struct("Routepen")
-            .field("cc0pen", &self.cc0pen())
-            .field("cc1pen", &self.cc1pen())
-            .field("cc2pen", &self.cc2pen())
-            .field("cc3pen", &self.cc3pen())
-            .field("cdti0pen", &self.cdti0pen())
-            .field("cdti1pen", &self.cdti1pen())
-            .field("cdti2pen", &self.cdti2pen())
+            .field("cc_pen[0]", &self.cc_pen(0usize))
+            .field("cc_pen[1]", &self.cc_pen(1usize))
+            .field("cc_pen[2]", &self.cc_pen(2usize))
+            .field("cc_pen[3]", &self.cc_pen(3usize))
+            .field("cdti_pen[0]", &self.cdti_pen(0usize))
+            .field("cdti_pen[1]", &self.cdti_pen(1usize))
+            .field("cdti_pen[2]", &self.cdti_pen(2usize))
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
 impl defmt::Format for Routepen {
     fn format(&self, f: defmt::Formatter) {
-        defmt :: write ! (f , "Routepen {{ cc0pen: {=bool:?}, cc1pen: {=bool:?}, cc2pen: {=bool:?}, cc3pen: {=bool:?}, cdti0pen: {=bool:?}, cdti1pen: {=bool:?}, cdti2pen: {=bool:?} }}" , self . cc0pen () , self . cc1pen () , self . cc2pen () , self . cc3pen () , self . cdti0pen () , self . cdti1pen () , self . cdti2pen ())
+        defmt :: write ! (f , "Routepen {{ cc_pen[0]: {=bool:?}, cc_pen[1]: {=bool:?}, cc_pen[2]: {=bool:?}, cc_pen[3]: {=bool:?}, cdti_pen[0]: {=bool:?}, cdti_pen[1]: {=bool:?}, cdti_pen[2]: {=bool:?} }}" , self . cc_pen (0usize) , self . cc_pen (1usize) , self . cc_pen (2usize) , self . cc_pen (3usize) , self . cdti_pen (0usize) , self . cdti_pen (1usize) , self . cdti_pen (2usize))
     }
 }
 #[doc = "Status Register."]

@@ -3,6 +3,7 @@ transforms:
   - !DeleteFieldsets
       from: .*
       useless: true
+  - !CleanDescriptions
 
   # ===========================================================================
   # Strip the trailing "0" from single-instance peripherals.  PG1B has only
@@ -26,7 +27,7 @@ transforms:
   # DTLOCK registers across MSC, EMU, RMU, CMU, TIMER, RTCC, GPIO.  Merge
   # into one canonical definition.
   # ===========================================================================
-  
+
   - !MergeEnums
       from: ".+::vals::.*Lockkey"
       to: "msc::vals::Lockkey"
@@ -202,6 +203,41 @@ transforms:
       to_outer: "cc$1"
       to_inner: "$2"
       to_block: "timer::Channel"
+  # Create a single cc register array with 4 elements
+  - !MakeRegisterArray
+      blocks: timer::Timer
+      from: cc\d+
+      to: cc
+  # cc0, cc1, cc2, cc3 -> cc array
+  # icbof0, icbof1, icbof2, icbof3 -> icbof array
+  - !MakeFieldArray
+    fieldsets: timer::regs::(If|Ifc|Ifs|Ien)
+    from: cc\d+
+    to: cc
+  - !MakeFieldArray
+    fieldsets: timer::regs::(If|Ifc|Ifs|Ien)
+    from: icbof\d+
+    to: icbof
+  # cc0loc, cc1loc, cc2loc, cc3loc -> cc_loc array
+  - !MakeFieldArray
+    fieldsets: timer::regs::Routeloc0
+    from: cc\d+loc
+    to: cc_loc
+  # cdti0loc, cdti1loc, cdti2loc -> cdti_loc array
+  - !MakeFieldArray
+    fieldsets: timer::regs::Routeloc2
+    from: cdti\d+loc
+    to: cdti_loc
+  # cc0pen, cc1pen, cc2pen, cc3pen -> cc_pen array
+  - !MakeFieldArray
+    fieldsets: timer::regs::Routepen
+    from: cc\d+pen
+    to: cc_pen
+  # cdti0pen, cdti1pen, cdti2pen -> cdti_pen array
+  - !MakeFieldArray
+    fieldsets: timer::regs::Routepen
+    from: cdti\d+pen
+    to: cdti_pen
   # merge timer channel enums
   - !MergeEnums
       from: "timer::vals::Cc[0-3](.+)"

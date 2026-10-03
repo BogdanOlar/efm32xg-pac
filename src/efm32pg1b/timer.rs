@@ -121,20 +121,9 @@ impl Timer {
         unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x3cusize) as _) }
     }
     #[inline(always)]
-    pub const fn cc0(self) -> Channel {
-        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x60usize) as _) }
-    }
-    #[inline(always)]
-    pub const fn cc1(self) -> Channel {
-        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x70usize) as _) }
-    }
-    #[inline(always)]
-    pub const fn cc2(self) -> Channel {
-        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x80usize) as _) }
-    }
-    #[inline(always)]
-    pub const fn cc3(self) -> Channel {
-        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x90usize) as _) }
+    pub const fn cc(self, n: usize) -> Channel {
+        assert!(n < 4usize);
+        unsafe { Channel::from_ptr(self.ptr.wrapping_add(0x60usize + n * 16usize) as _) }
     }
     #[doc = "DTI Control Register."]
     #[inline(always)]
