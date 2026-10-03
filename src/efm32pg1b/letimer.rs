@@ -1,11 +1,11 @@
 #[doc = "LETIMER0."]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Letimer {
+pub struct LeTimer {
     ptr: *mut u8,
 }
-unsafe impl Send for Letimer {}
-unsafe impl Sync for Letimer {}
-impl Letimer {
+unsafe impl Send for LeTimer {}
+unsafe impl Sync for LeTimer {}
+impl LeTimer {
     #[inline(always)]
     pub const unsafe fn from_ptr(ptr: *mut ()) -> Self {
         Self { ptr: ptr as _ }

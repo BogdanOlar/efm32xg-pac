@@ -6,23 +6,6 @@ transforms:
   - !CleanDescriptions
 
   # ===========================================================================
-  # Strip the trailing "0" from single-instance peripherals.  PG1B has only
-  # one ADC, I2C, IDAC, LETIMER, LEUART, PCNT, WDOG — the "0" suffix adds
-  # noise.  Rename both the peripheral const (RenamePeripherals) and the
-  # block/fieldset/enum paths (Rename).
-  # ===========================================================================
-
-  - !RenamePeripherals
-      from: "(ADC|I2C|IDAC|LETIMER|LEUART|PCNT|WDOG)0"
-      to: "$1"
-  - !Rename
-      from: "(adc|i2c|idac|letimer|leuart|pcnt|wdog)0::(.+)"
-      to: "$1::$2"
-  - !Rename
-      from: "(adc|i2c|idac|letimer|leuart|pcnt|wdog)::(Adc|I2c|Idac|Letimer|Leuart|Pcnt|Wdog)0"
-      to: "$1::$2"
-
-  # ===========================================================================
   # LOCKKEY enum merging: the Unlocked/Locked enum appears in LOCK/MASSLOCK/
   # DTLOCK registers across MSC, EMU, RMU, CMU, TIMER, RTCC, GPIO.  Merge
   # into one canonical definition.
@@ -45,6 +28,21 @@ transforms:
       to: "$1::regs::Ifs"
       main: "(.+)::regs::Ifs"
       check: NoCheck
+
+  # ===========================================================================
+  # ADC
+  # ===========================================================================
+
+  # ADC0 + ... + ADCn -> adc::Adc
+  - !MergeBlocks
+      from: adc\d+::Adc\d+
+      to: adc::Adc
+      check: NoCheck
+  - !Rename
+      from: "adc0::(.+)"
+      to: "adc::$1"
+  - !Delete
+      from: "adc[0-9].*"
 
   # ===========================================================================
   # ACMP
@@ -76,7 +74,7 @@ transforms:
   # CMU
   # ===========================================================================
 
-  # make arrays out of multiple enable flags for the same peripheral type (e.g. timer0, timer1 -> timer array)
+  # make arrays out of multiple clock gating flags for the same peripheral type (e.g. timer0, timer1 -> timer array)
   - !MakeFieldArray
     fieldsets: cmu::regs::Hfperclken0
     from: timer\d+
@@ -153,7 +151,37 @@ transforms:
       fieldset: "gpio::regs::Ctrl"
       from: "dindisalt"
       to: "din_dis_alt"
-  
+
+  # ===========================================================================
+  # I2C
+  # ===========================================================================
+
+  # I2C0 + ... + I2Cn -> i2c::I2c
+  - !MergeBlocks
+      from: i2c\d+::I2c\d+
+      to: i2c::I2c
+      check: NoCheck
+  - !Rename
+      from: "i2c0::(.+)"
+      to: "i2c::$1"
+  - !Delete
+      from: "i2c[0-9].*"
+
+  # ===========================================================================
+  # IDAC
+  # ===========================================================================
+
+  # IDAC0 + ... + IDACn -> idac::Idac
+  - !MergeBlocks
+      from: idac\d+::Idac\d+
+      to: idac::Idac
+      check: NoCheck
+  - !Rename
+      from: "idac0::(.+)"
+      to: "idac::$1"
+  - !Delete
+      from: "idac[0-9].*"
+
   # ===========================================================================
   # LDMA
   # ===========================================================================
@@ -172,8 +200,71 @@ transforms:
       to: "loop_"
 
   # ===========================================================================
+  # LETIMER
+  # ===========================================================================
+
+  # LETIMER0 + ... + LETIMERn -> letimer::LeTimer
+  - !MergeBlocks
+      from: letimer\d+::Letimer\d+
+      to: letimer::LeTimer
+      check: NoCheck
+  - !Rename
+      from: "letimer0::(.+)"
+      to: "letimer::$1"
+  - !Delete
+      from: "letimer[0-9].*"
+
+  # ===========================================================================
+  # LEUART
+  # ===========================================================================
+
+  # LEUART0 + ... + LEUARTn -> leuart::LeUart
+  - !MergeBlocks
+      from: leuart\d+::Leuart\d+
+      to: leuart::LeUart
+      check: NoCheck
+  - !Rename
+      from: "leuart0::(.+)"
+      to: "leuart::$1"
+  - !Delete
+      from: "leuart[0-9].*"
+
+  # ===========================================================================
+  # PCNT
+  # ===========================================================================
+
+  # PCNT0 + ... + PCNTn -> pcnt::Pcnt
+  - !MergeBlocks
+      from: pcnt\d+::Pcnt\d+
+      to: pcnt::Pcnt
+      check: NoCheck
+  - !Rename
+      from: "pcnt0::(.+)"
+      to: "pcnt::$1"
+  - !Delete
+      from: "pcnt[0-9].*"
+
+  # ===========================================================================
   # PRS
   # ===========================================================================
+  
+  # make arrays out of multiple register fields dealing with PRS channels
+  - !MakeFieldArray
+    fieldsets: prs::regs::Swpulse
+    from: ch(\d+)pulse
+    to: ch_pulse
+  - !MakeFieldArray
+    fieldsets: prs::regs::Swlevel
+    from: ch(\d+)level
+    to: ch_level
+  - !MakeFieldArray
+    fieldsets: prs::regs::Routepen
+    from: ch(\d+)pen
+    to: ch_pen
+  - !MakeFieldArray
+    fieldsets: prs::regs::Peek
+    from: ch(\d+)val
+    to: ch_val
 
   # merge CH0Ctrl,CH1Ctrl...CH11Ctrl fieldsets
   - !MergeFieldsets
@@ -297,3 +388,18 @@ transforms:
       to: "usart::$1"
   - !Delete
       from: "usart1.*"
+
+  # ===========================================================================
+  # WDOG
+  # ===========================================================================
+
+  # WDOG0 + ... + WDOGn -> wdog::Wdog
+  - !MergeBlocks
+      from: wdog\d+::Wdog\d+
+      to: wdog::Wdog
+      check: NoCheck
+  - !Rename
+      from: "wdog0::(.+)"
+      to: "wdog::$1"
+  - !Delete
+      from: "wdog[0-9].*"

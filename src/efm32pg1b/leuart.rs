@@ -1,11 +1,11 @@
 #[doc = "LEUART0."]
 #[derive(Copy, Clone, Eq, PartialEq)]
-pub struct Leuart {
+pub struct LeUart {
     ptr: *mut u8,
 }
-unsafe impl Send for Leuart {}
-unsafe impl Sync for Leuart {}
-impl Leuart {
+unsafe impl Send for LeUart {}
+unsafe impl Sync for LeUart {}
+impl LeUart {
     #[inline(always)]
     pub const unsafe fn from_ptr(ptr: *mut ()) -> Self {
         Self { ptr: ptr as _ }
