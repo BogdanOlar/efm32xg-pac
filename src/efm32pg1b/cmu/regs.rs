@@ -789,74 +789,50 @@ impl Hfperclken0 {
     #[doc = "Timer 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn timer0(&self) -> bool {
-        let val = (self.0 >> 0usize) & 0x01;
+    pub const fn timer(&self, n: usize) -> bool {
+        assert!(n < 2usize);
+        let offs = 0usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Timer 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_timer0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u32) & 0x01) << 0usize);
-    }
-    #[doc = "Timer 1 Clock Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn timer1(&self) -> bool {
-        let val = (self.0 >> 1usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Timer 1 Clock Enable."]
-    #[inline(always)]
-    pub const fn set_timer1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 1usize)) | (((val as u32) & 0x01) << 1usize);
+    pub const fn set_timer(&mut self, n: usize, val: bool) {
+        assert!(n < 2usize);
+        let offs = 0usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "Universal Synchronous/Asynchronous Receiver/Transmitter 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn usart0(&self) -> bool {
-        let val = (self.0 >> 2usize) & 0x01;
+    pub const fn usart(&self, n: usize) -> bool {
+        assert!(n < 2usize);
+        let offs = 2usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Universal Synchronous/Asynchronous Receiver/Transmitter 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_usart0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 2usize)) | (((val as u32) & 0x01) << 2usize);
-    }
-    #[doc = "Universal Synchronous/Asynchronous Receiver/Transmitter 1 Clock Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn usart1(&self) -> bool {
-        let val = (self.0 >> 3usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Universal Synchronous/Asynchronous Receiver/Transmitter 1 Clock Enable."]
-    #[inline(always)]
-    pub const fn set_usart1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 3usize)) | (((val as u32) & 0x01) << 3usize);
+    pub const fn set_usart(&mut self, n: usize, val: bool) {
+        assert!(n < 2usize);
+        let offs = 2usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "Analog Comparator 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn acmp0(&self) -> bool {
-        let val = (self.0 >> 4usize) & 0x01;
+    pub const fn acmp(&self, n: usize) -> bool {
+        assert!(n < 2usize);
+        let offs = 4usize + n * 1usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Analog Comparator 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_acmp0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 4usize)) | (((val as u32) & 0x01) << 4usize);
-    }
-    #[doc = "Analog Comparator 1 Clock Enable."]
-    #[must_use]
-    #[inline(always)]
-    pub const fn acmp1(&self) -> bool {
-        let val = (self.0 >> 5usize) & 0x01;
-        val != 0
-    }
-    #[doc = "Analog Comparator 1 Clock Enable."]
-    #[inline(always)]
-    pub const fn set_acmp1(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 5usize)) | (((val as u32) & 0x01) << 5usize);
+    pub const fn set_acmp(&mut self, n: usize, val: bool) {
+        assert!(n < 2usize);
+        let offs = 4usize + n * 1usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "CRYOTIMER Clock Enable."]
     #[must_use]
@@ -873,38 +849,50 @@ impl Hfperclken0 {
     #[doc = "I2C 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn i2c0(&self) -> bool {
-        let val = (self.0 >> 7usize) & 0x01;
+    pub const fn i2c(&self, n: usize) -> bool {
+        assert!(n < 1usize);
+        let offs = 7usize + n * 0usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "I2C 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_i2c0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 7usize)) | (((val as u32) & 0x01) << 7usize);
+    pub const fn set_i2c(&mut self, n: usize, val: bool) {
+        assert!(n < 1usize);
+        let offs = 7usize + n * 0usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "Analog to Digital Converter 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn adc0(&self) -> bool {
-        let val = (self.0 >> 8usize) & 0x01;
+    pub const fn adc(&self, n: usize) -> bool {
+        assert!(n < 1usize);
+        let offs = 8usize + n * 0usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Analog to Digital Converter 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_adc0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 8usize)) | (((val as u32) & 0x01) << 8usize);
+    pub const fn set_adc(&mut self, n: usize, val: bool) {
+        assert!(n < 1usize);
+        let offs = 8usize + n * 0usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
     #[doc = "Current Digital to Analog Converter 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn idac0(&self) -> bool {
-        let val = (self.0 >> 9usize) & 0x01;
+    pub const fn idac(&self, n: usize) -> bool {
+        assert!(n < 1usize);
+        let offs = 9usize + n * 0usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Current Digital to Analog Converter 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_idac0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 9usize)) | (((val as u32) & 0x01) << 9usize);
+    pub const fn set_idac(&mut self, n: usize, val: bool) {
+        assert!(n < 1usize);
+        let offs = 9usize + n * 0usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
 }
 impl Default for Hfperclken0 {
@@ -916,23 +904,23 @@ impl Default for Hfperclken0 {
 impl core::fmt::Debug for Hfperclken0 {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
         f.debug_struct("Hfperclken0")
-            .field("timer0", &self.timer0())
-            .field("timer1", &self.timer1())
-            .field("usart0", &self.usart0())
-            .field("usart1", &self.usart1())
-            .field("acmp0", &self.acmp0())
-            .field("acmp1", &self.acmp1())
+            .field("timer[0]", &self.timer(0usize))
+            .field("timer[1]", &self.timer(1usize))
+            .field("usart[0]", &self.usart(0usize))
+            .field("usart[1]", &self.usart(1usize))
+            .field("acmp[0]", &self.acmp(0usize))
+            .field("acmp[1]", &self.acmp(1usize))
             .field("cryotimer", &self.cryotimer())
-            .field("i2c0", &self.i2c0())
-            .field("adc0", &self.adc0())
-            .field("idac0", &self.idac0())
+            .field("i2c[0]", &self.i2c(0usize))
+            .field("adc[0]", &self.adc(0usize))
+            .field("idac[0]", &self.idac(0usize))
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
 impl defmt::Format for Hfperclken0 {
     fn format(&self, f: defmt::Formatter) {
-        defmt :: write ! (f , "Hfperclken0 {{ timer0: {=bool:?}, timer1: {=bool:?}, usart0: {=bool:?}, usart1: {=bool:?}, acmp0: {=bool:?}, acmp1: {=bool:?}, cryotimer: {=bool:?}, i2c0: {=bool:?}, adc0: {=bool:?}, idac0: {=bool:?} }}" , self . timer0 () , self . timer1 () , self . usart0 () , self . usart1 () , self . acmp0 () , self . acmp1 () , self . cryotimer () , self . i2c0 () , self . adc0 () , self . idac0 ())
+        defmt :: write ! (f , "Hfperclken0 {{ timer[0]: {=bool:?}, timer[1]: {=bool:?}, usart[0]: {=bool:?}, usart[1]: {=bool:?}, acmp[0]: {=bool:?}, acmp[1]: {=bool:?}, cryotimer: {=bool:?}, i2c[0]: {=bool:?}, adc[0]: {=bool:?}, idac[0]: {=bool:?} }}" , self . timer (0usize) , self . timer (1usize) , self . usart (0usize) , self . usart (1usize) , self . acmp (0usize) , self . acmp (1usize) , self . cryotimer () , self . i2c (0usize) , self . adc (0usize) , self . idac (0usize))
     }
 }
 #[doc = "High Frequency Peripheral Clock Prescaler Register."]
@@ -2339,14 +2327,18 @@ impl Lfaclken0 {
     #[doc = "Low Energy Timer 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn letimer0(&self) -> bool {
-        let val = (self.0 >> 0usize) & 0x01;
+    pub const fn letimer(&self, n: usize) -> bool {
+        assert!(n < 1usize);
+        let offs = 0usize + n * 0usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Low Energy Timer 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_letimer0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u32) & 0x01) << 0usize);
+    pub const fn set_letimer(&mut self, n: usize, val: bool) {
+        assert!(n < 1usize);
+        let offs = 0usize + n * 0usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
 }
 impl Default for Lfaclken0 {
@@ -2358,14 +2350,18 @@ impl Default for Lfaclken0 {
 impl core::fmt::Debug for Lfaclken0 {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
         f.debug_struct("Lfaclken0")
-            .field("letimer0", &self.letimer0())
+            .field("letimer[0]", &self.letimer(0usize))
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
 impl defmt::Format for Lfaclken0 {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Lfaclken0 {{ letimer0: {=bool:?} }}", self.letimer0())
+        defmt::write!(
+            f,
+            "Lfaclken0 {{ letimer[0]: {=bool:?} }}",
+            self.letimer(0usize)
+        )
     }
 }
 #[doc = "Low Frequency A Clock Select Register."]
@@ -2450,14 +2446,18 @@ impl Lfbclken0 {
     #[doc = "Low Energy UART 0 Clock Enable."]
     #[must_use]
     #[inline(always)]
-    pub const fn leuart0(&self) -> bool {
-        let val = (self.0 >> 0usize) & 0x01;
+    pub const fn leuart(&self, n: usize) -> bool {
+        assert!(n < 1usize);
+        let offs = 0usize + n * 0usize;
+        let val = (self.0 >> offs) & 0x01;
         val != 0
     }
     #[doc = "Low Energy UART 0 Clock Enable."]
     #[inline(always)]
-    pub const fn set_leuart0(&mut self, val: bool) {
-        self.0 = (self.0 & !(0x01 << 0usize)) | (((val as u32) & 0x01) << 0usize);
+    pub const fn set_leuart(&mut self, n: usize, val: bool) {
+        assert!(n < 1usize);
+        let offs = 0usize + n * 0usize;
+        self.0 = (self.0 & !(0x01 << offs)) | (((val as u32) & 0x01) << offs);
     }
 }
 impl Default for Lfbclken0 {
@@ -2469,14 +2469,18 @@ impl Default for Lfbclken0 {
 impl core::fmt::Debug for Lfbclken0 {
     fn fmt(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
         f.debug_struct("Lfbclken0")
-            .field("leuart0", &self.leuart0())
+            .field("leuart[0]", &self.leuart(0usize))
             .finish()
     }
 }
 #[cfg(feature = "defmt")]
 impl defmt::Format for Lfbclken0 {
     fn format(&self, f: defmt::Formatter) {
-        defmt::write!(f, "Lfbclken0 {{ leuart0: {=bool:?} }}", self.leuart0())
+        defmt::write!(
+            f,
+            "Lfbclken0 {{ leuart[0]: {=bool:?} }}",
+            self.leuart(0usize)
+        )
     }
 }
 #[doc = "Low Frequency B Clock Select Register."]

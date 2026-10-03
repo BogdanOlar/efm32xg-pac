@@ -73,6 +73,44 @@ transforms:
       skip_unmergeable: true
 
   # ===========================================================================
+  # CMU
+  # ===========================================================================
+
+  # make arrays out of multiple enable flags for the same peripheral type (e.g. timer0, timer1 -> timer array)
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Hfperclken0
+    from: timer\d+
+    to: timer
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Hfperclken0
+    from: usart\d+
+    to: usart
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Hfperclken0
+    from: acmp\d+
+    to: acmp   
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Hfperclken0
+    from: i2c\d+
+    to: i2c
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Hfperclken0
+    from: adc\d+
+    to: adc
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Hfperclken0
+    from: idac\d+
+    to: idac
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Lfaclken0
+    from: letimer\d+
+    to: letimer
+  - !MakeFieldArray
+    fieldsets: cmu::regs::Lfbclken0
+    from: leuart\d+
+    to: leuart
+
+  # ===========================================================================
   # GPIO
   # ===========================================================================
 
