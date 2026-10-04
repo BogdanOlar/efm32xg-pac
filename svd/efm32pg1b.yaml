@@ -265,7 +265,6 @@ transforms:
     fieldsets: prs::regs::Peek
     from: ch(\d+)val
     to: ch_val
-
   # merge CH0Ctrl,CH1Ctrl...CH11Ctrl fieldsets
   - !MergeFieldsets
       from: "prs::regs::Ch(\\d+)Ctrl"
@@ -284,6 +283,11 @@ transforms:
       to: "prs::vals::ChCtrl$2"
       check: NoCheck
       skip_unmergeable: true
+  # Group all ChCtrl registers into an array
+  - !MakeRegisterArray
+    blocks: prs::Prs
+    from: ch\d+_ctrl
+    to: ch_ctrl
 
   # ===========================================================================
   # RTCC

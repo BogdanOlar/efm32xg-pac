@@ -66,63 +66,9 @@ impl Prs {
     }
     #[doc = "Channel Control Register."]
     #[inline(always)]
-    pub const fn ch0_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x40usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch1_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x44usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch2_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x48usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch3_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x4cusize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch4_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x50usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch5_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x54usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch6_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x58usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch7_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x5cusize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch8_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x60usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch9_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x64usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch10_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x68usize) as _) }
-    }
-    #[doc = "Channel Control Register."]
-    #[inline(always)]
-    pub const fn ch11_ctrl(self) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
-        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x6cusize) as _) }
+    pub const fn ch_ctrl(self, n: usize) -> crate::common::Reg<regs::ChCtrl, crate::common::RW> {
+        assert!(n < 12usize);
+        unsafe { crate::common::Reg::from_ptr(self.ptr.wrapping_add(0x40usize + n * 4usize) as _) }
     }
 }
 pub mod regs;
